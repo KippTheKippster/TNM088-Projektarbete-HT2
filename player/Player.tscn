@@ -7,8 +7,14 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Model" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="Gun" type="Sprite" parent="Model"]
+position = Vector2( 20, 1.90735e-06 )
+scale = Vector2( 1, 0.203125 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
