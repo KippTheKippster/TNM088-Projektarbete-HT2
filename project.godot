@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="TNM088 Projektarbete HT2"
+run/main_scene="res://main scenes/Game.tscn"
 config/icon="res://assets/textures/icon.png"
 
 [editor]
