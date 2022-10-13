@@ -50,6 +50,10 @@ left={
  ]
 }
 
+[mono]
+
+project/assembly_name="TNM088 Projektarbete HT2"
+
 [physics]
 
 common/enable_pause_aware_picking=true
