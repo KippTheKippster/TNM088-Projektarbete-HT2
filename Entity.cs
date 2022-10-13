@@ -3,15 +3,16 @@ using System;
 
 public abstract class Entity : KinematicBody2D //invisible object with characteristics one can use
 {
-	Vector2 velocity;
-	const float gravity = 982F;
+	public Vector2 velocity;
+	public const float gravity = 982F;
 	
-}
-
-public override void _Proccess(float delta)
+	public override void _Process(float delta) //overwrite (viktigare i jerakin)
 {
 	MoveAndSlide(velocity);
 	Test();	
 }
 
 public abstract void Test();
+}
+
+
