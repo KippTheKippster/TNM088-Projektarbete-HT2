@@ -1,12 +1,8 @@
 using Godot;
 using System;
 
-public class Player : KinematicBody2D
+public class Player : Entity
 {
-	Vector2 velocity;
-
-	const float gravity = 982F;
-
 	int inputX;
 
 	public override void _Process(float delta)
@@ -28,7 +24,10 @@ public class Player : KinematicBody2D
 	{
 		velocity = new Vector2(inputX * 100, velocity.y);
 		velocity.y += gravity * delta;
-
-		MoveAndSlide(velocity, Vector2.Up);
+	}
+	
+	public override void Test()
+	{
+		GD.Print("Testing123");
 	}
 }
