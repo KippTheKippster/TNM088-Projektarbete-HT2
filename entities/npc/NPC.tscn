@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/npc/SequenceHandler.cs" type="Script" id=1]
+[ext_resource path="res://entities/npc/NPC.cs" type="Script" id=2]
+[ext_resource path="res://entities/npc/Sequence.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/textures/icon.png" type="Texture" id=4]
+
+[node name="NPC" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="SequenceHandler" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Sequence 1" parent="SequenceHandler" instance=ExtResource( 3 )]
+text = "Testing sequence number 1!"
+
+[node name="Sequence 2" parent="SequenceHandler" instance=ExtResource( 3 )]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.107
+one_shot = true
+autostart = true
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[connection signal="timeout" from="Timer" to="SequenceHandler" method="_on_Timer_timeout"]
