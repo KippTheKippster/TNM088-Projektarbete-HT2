@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/guns/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/guns/PlayerGun.cs" type="Script" id=2]
+[ext_resource path="res://entities/bullets/PlayerBullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/textures/player/gun.png" type="Texture" id=4]
+
+[node name="PlayerGun" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+bulletScene = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 4, -3 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 4 )

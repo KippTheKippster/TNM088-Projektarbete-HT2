@@ -1,33 +1,32 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/textures/icon.png" type="Texture" id=1]
+[ext_resource path="res://entities/guns/PlayerGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://entities/player/FloorCheck.cs" type="Script" id=3]
-[ext_resource path="res://entities/player/PlayerGun.cs" type="Script" id=4]
+[ext_resource path="res://assets/textures/player/player.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
+extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 8 )
+extents = Vector2( 8, 2 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
+gravity = 680.0
+acceleration = 2.0
+deceleration = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Model" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 5 )
 
-[node name="Gun" type="Sprite" parent="Model"]
+[node name="PlayerGun" parent="Model" instance=ExtResource( 1 )]
 unique_name_in_owner = true
-position = Vector2( 20, 1.90735e-06 )
-scale = Vector2( 1, 0.203125 )
-texture = ExtResource( 1 )
-script = ExtResource( 4 )
+position = Vector2( 5, 4 )
 
 [node name="FloorCheck" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -36,7 +35,11 @@ collision_layer = 0
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCheck"]
+position = Vector2( 0, -24 )
 shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 
 [connection signal="body_entered" from="FloorCheck" to="FloorCheck" method="OnFloorCheckEntered"]
 [connection signal="body_exited" from="FloorCheck" to="FloorCheck" method="OnFloorCheckExisted"]

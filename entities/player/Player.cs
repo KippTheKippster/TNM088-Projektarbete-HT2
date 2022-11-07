@@ -6,23 +6,29 @@ public class Player : Entity
 	FloorCheck floorCheck;
 	PlayerGun gun;
 
-	[Export] readonly float speedX = 200f;
-	[Export] readonly float jumpStrength = 600f;
+	Vector2 moveSpeed;
+	Vector2 targetMoveSpeed;
+	Vector2 externalSpeed;
+
+	[Export] readonly float speedX = 100f;
+	[Export] readonly float jumpStrength = 300f;
+	[Export] readonly float acceleration = 6f;
+	[Export] readonly float deceleration = 6f;
 
 	int inputX;
-	int aimVerticalDirection;
+	int directionX = 1;
+	int directionY;
 
     public override void _Ready()
     {
         floorCheck = GetNode<FloorCheck>("%FloorCheck");
-		gun = GetNode<PlayerGun>("%Gun");
+		gun = GetNode<PlayerGun>("%PlayerGun");
     }
 
     public override void _PhysicsProcess(float delta)
     {
 		ReadInput();
 		Move(delta);
-		Gun();
 	}
 
 	private void ReadInput()
@@ -38,36 +44,72 @@ public class Player : Entity
 				Jump();
 
 		if (Input.IsActionPressed("up"))
-			aimVerticalDirection = -1;
+			directionY = -1;
 		else if (Input.IsActionPressed("down"))
-			aimVerticalDirection = 1;
+			directionY = 1;
 		else
-			aimVerticalDirection = 0;	
+			directionY = 0;
+
+		Gun();
+
+		if (Input.IsActionJustPressed("shoot"))
+			Shoot();
 	}
 
 	private void Move(float delta)
 	{
-		velocity.x = inputX * speedX;
+		float weight;
+
+		if (inputX != 0)
+        {
+			directionX = inputX;
+			GlobalScale = new Vector2(directionX, 1);
+			GlobalRotation = 0;
+			weight = acceleration;
+		}
+		else
+        {
+			weight = deceleration;
+        }
+
+		targetMoveSpeed.x = inputX * speedX;
+		moveSpeed.x = Mathf.Lerp(moveSpeed.x, targetMoveSpeed.x, weight * delta);
 
 		if (!IsOnFloor())
         {
-			velocity.y += gravity * delta;
+			externalSpeed.y += gravity * delta;
 		}
-		else if (velocity.y >= 0)
+		else if (externalSpeed.y > 0)
         {
-			velocity.y = 0;
+			externalSpeed = new Vector2();
 		}
+
+		velocity = moveSpeed + externalSpeed;
 
 		MoveAndSlide(velocity, Vector2.Up);
 	}
 	
 	private void Jump()
 	{
-		velocity.y = -jumpStrength;
+		externalSpeed.y = -jumpStrength;
 	}
 
 	private void Gun()
 	{
-		gun.Rotation = (Mathf.Pi / 2f) * aimVerticalDirection;
+		gun.Rotation = (Mathf.Pi / 2f) * directionY;
+	}
+
+	private void Shoot()
+    {
+		Vector2 shootVector;
+
+		if (directionY != 0)
+			shootVector = new Vector2(0, directionY);
+		else
+			shootVector = new Vector2(directionX, 0);
+
+		externalSpeed = -shootVector * 200f;
+
+		gun.Shoot(GlobalPosition, shootVector);
 	}
 }
