@@ -5,15 +5,16 @@ public class Player : Entity
 {
 	FloorCheck floorCheck;
 	PlayerGun gun;
-
 	Vector2 moveSpeed;
 	Vector2 targetMoveSpeed;
 	Vector2 externalSpeed;
 
 	[Export] readonly float speedX = 100f;
 	[Export] readonly float jumpStrength = 300f;
-	[Export] readonly float acceleration = 6f;
-	[Export] readonly float deceleration = 6f;
+	[Export] readonly float moveAcceleration = 6f;
+	[Export] readonly float groundDeceleration = 6f;
+	[Export] readonly float airDeceleration = 6f;
+	[Export] readonly float gunKnockback = 200f;
 
 	int inputX;
 	int directionX = 1;
@@ -65,15 +66,19 @@ public class Player : Entity
 			directionX = inputX;
 			GlobalScale = new Vector2(directionX, 1);
 			GlobalRotation = 0;
-			weight = acceleration;
+		}
+
+		if (IsOnFloor())
+		{
+			weight = groundDeceleration;
 		}
 		else
-        {
-			weight = deceleration;
-        }
-
+		{
+			weight = airDeceleration;
+		}
 		targetMoveSpeed.x = inputX * speedX;
-		moveSpeed.x = Mathf.Lerp(moveSpeed.x, targetMoveSpeed.x, weight * delta);
+		moveSpeed.x = Mathf.Lerp(moveSpeed.x, targetMoveSpeed.x, moveAcceleration * delta);
+		externalSpeed.x = Mathf.Lerp(externalSpeed.x, 0, weight * delta);
 
 		if (!IsOnFloor())
         {
@@ -81,7 +86,7 @@ public class Player : Entity
 		}
 		else if (externalSpeed.y > 0)
         {
-			externalSpeed = new Vector2();
+			externalSpeed.y = 0;
 		}
 
 		velocity = moveSpeed + externalSpeed;
@@ -108,7 +113,7 @@ public class Player : Entity
 		else
 			shootVector = new Vector2(directionX, 0);
 
-		externalSpeed = -shootVector * 200f;
+		externalSpeed = -shootVector * gunKnockback;
 
 		gun.Shoot(GlobalPosition, shootVector);
 	}
