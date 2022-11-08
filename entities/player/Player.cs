@@ -20,14 +20,14 @@ public class Player : Entity
 	int directionX = 1;
 	int directionY;
 
-    public override void _Ready()
-    {
-        floorCheck = GetNode<FloorCheck>("%FloorCheck");
+	public override void _Ready()
+	{
+		floorCheck = GetNode<FloorCheck>("%FloorCheck");
 		gun = GetNode<PlayerGun>("%PlayerGun");
-    }
+	}
 
-    public override void _PhysicsProcess(float delta)
-    {
+	public override void _PhysicsProcess(float delta)
+	{
 		ReadInput();
 		Move(delta);
 	}
@@ -62,7 +62,7 @@ public class Player : Entity
 		float weight;
 
 		if (inputX != 0)
-        {
+		{
 			directionX = inputX;
 			GlobalScale = new Vector2(directionX, 1);
 			GlobalRotation = 0;
@@ -81,11 +81,11 @@ public class Player : Entity
 		externalSpeed.x = Mathf.Lerp(externalSpeed.x, 0, weight * delta);
 
 		if (!IsOnFloor())
-        {
+		{
 			externalSpeed.y += gravity * delta;
 		}
 		else if (externalSpeed.y > 0)
-        {
+		{
 			externalSpeed.y = 0;
 		}
 
@@ -105,7 +105,7 @@ public class Player : Entity
 	}
 
 	private void Shoot()
-    {
+	{
 		Vector2 shootVector;
 
 		if (directionY != 0)
