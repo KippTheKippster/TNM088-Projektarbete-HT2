@@ -76,6 +76,7 @@ public class Player : Entity
 		{
 			weight = airDeceleration;
 		}
+
 		targetMoveSpeed.x = inputX * speedX;
 		moveSpeed.x = Mathf.Lerp(moveSpeed.x, targetMoveSpeed.x, moveAcceleration * delta);
 		externalSpeed.x = Mathf.Lerp(externalSpeed.x, 0, weight * delta);
