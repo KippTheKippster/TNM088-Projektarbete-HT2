@@ -2,8 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\entities",
-    "\\entities\\player",
-    "\\main scenes"
+    "\\entities\\bullets",
+    "\\entities\\enemies",
+    "\\entities\\guns",
+    "\\entities\\npc",
+    "\\main scenes",
+    "\\world",
+    "\\world\\geometry",
+    "\\world\\levels"
   ],
   "SelectedNode": "\\entities\\player\\Player.cs",
   "PreviewInSolutionExplorer": false

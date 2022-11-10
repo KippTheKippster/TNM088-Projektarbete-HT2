@@ -16,9 +16,9 @@ public class Elevator : AnimatedSprite
             _endElevator = value;
 
             if (value)
-                Animation = "closed";
+                Close();
             else
-                Animation = "open";
+                Open();
         }
     }
 
@@ -34,5 +34,14 @@ public class Elevator : AnimatedSprite
         {
             //RotationDegrees += 180 * delta;
         }
+    }
+
+    public void Open()
+    {
+        Animation = "open";
+    }
+    public void Close()
+    {
+        Animation = "closed";
     }
 }

@@ -5,6 +5,7 @@ public class Player : Entity
 {
 	FloorCheck floorCheck;
 	PlayerGun gun;
+	Timer jumpTimer;
 	Vector2 moveSpeed;
 	Vector2 targetMoveSpeed;
 	Vector2 externalSpeed;
@@ -15,20 +16,27 @@ public class Player : Entity
 	[Export] readonly float groundDeceleration = 6f;
 	[Export] readonly float airDeceleration = 6f;
 	[Export] readonly float gunKnockback = 200f;
+	[Export] readonly float jumpGravityScale = 0.3f;
+
+	float gravityScale = 1.0f;
 
 	int inputX;
 	int directionX = 1;
 	int directionY;
 
+	bool isJumping;
+
 	public override void _Ready()
 	{
 		floorCheck = GetNode<FloorCheck>("%FloorCheck");
 		gun = GetNode<PlayerGun>("%PlayerGun");
+		jumpTimer = GetNode<Timer>("JumpTimer");
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
 		ReadInput();
+		Jump();
 		Move(delta);
 	}
 
@@ -40,9 +48,6 @@ public class Player : Entity
 			inputX = 1;
 		if (Input.IsActionPressed("left"))
 			inputX = -1;
-		if (Input.IsActionJustPressed("jump"))
-			if (floorCheck.IsOnFloor)
-				Jump();
 
 		if (Input.IsActionPressed("up"))
 			directionY = -1;
@@ -83,7 +88,7 @@ public class Player : Entity
 
 		if (!IsOnFloor())
 		{
-			externalSpeed.y += gravity * delta;
+			externalSpeed.y += gravity * gravityScale * delta;
 		}
 		else if (externalSpeed.y > 0)
 		{
@@ -97,7 +102,29 @@ public class Player : Entity
 	
 	private void Jump()
 	{
-		externalSpeed.y = -jumpStrength;
+		if (Input.IsActionJustPressed("jump"))
+		{
+            if (floorCheck.IsOnFloor)
+            {
+				gravityScale = jumpGravityScale;
+                isJumping = true;
+                jumpTimer.Start();
+            }
+        }
+		else if (Input.IsActionJustReleased("jump"))
+        {
+            isJumping = false;
+			gravityScale = 1.0f;
+        }
+
+        if (isJumping)
+			externalSpeed.y = -jumpStrength;
+	}
+
+	public void OnJumpTimerTimeout()
+	{
+		gravityScale = 1.0f;
+        isJumping = false;
 	}
 
 	private void Gun()
