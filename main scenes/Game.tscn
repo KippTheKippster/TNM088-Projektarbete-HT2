@@ -14,10 +14,6 @@ script = ExtResource( 5 )
 unique_name_in_owner = true
 z_index = 1
 gravity = 982.0
-speedX = 100.0
-groundDeceleration = 6.0
-airDeceleration = 6.0
-gunKnockback = 200.0
 
 [node name="NPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 994, 327 )
