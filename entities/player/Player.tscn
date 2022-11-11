@@ -9,12 +9,15 @@
 extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 1 )
+extents = Vector2( 8, 2 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-gravity = 400.0
+gravity = 300.0
+jumpStrength = 200.0
+groundDeceleration = 8.0
+jumpGravityScale = 0.856
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -37,7 +40,7 @@ position = Vector2( 0, -24 )
 shape = SubResource( 2 )
 
 [node name="DelayTimer" type="Timer" parent="FloorCheck"]
-wait_time = 0.1
+wait_time = 0.2
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

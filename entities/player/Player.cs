@@ -17,6 +17,7 @@ public class Player : Entity
 	[Export] readonly float airDeceleration = 6f;
 	[Export] readonly float gunKnockback = 200f;
 	[Export] readonly float jumpGravityScale = 0.3f;
+	[Export] readonly float holdDownTime = 0.2f;
 
 	float gravityScale = 1.0f;
 
@@ -31,6 +32,7 @@ public class Player : Entity
 		floorCheck = GetNode<FloorCheck>("%FloorCheck");
 		gun = GetNode<PlayerGun>("%PlayerGun");
 		jumpTimer = GetNode<Timer>("JumpTimer");
+		jumpTimer.WaitTime = holdDownTime;
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -104,9 +106,9 @@ public class Player : Entity
 	{
 		if (Input.IsActionJustPressed("jump"))
 		{
-            if (floorCheck.IsOnFloor)
+			gravityScale = jumpGravityScale;
+			if (floorCheck.IsOnFloor)
             {
-				gravityScale = jumpGravityScale;
                 isJumping = true;
                 jumpTimer.Start();
             }
@@ -123,7 +125,6 @@ public class Player : Entity
 
 	public void OnJumpTimerTimeout()
 	{
-		gravityScale = 1.0f;
         isJumping = false;
 	}
 

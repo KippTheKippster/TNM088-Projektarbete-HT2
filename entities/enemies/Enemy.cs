@@ -4,15 +4,12 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Enemy : Entity
 {
-	// Declare member variables here. Examples:
-	// private int a = 2;
-	// private string b = "text";
+	[Export] string[] signals = { "SignalEnemyDied" };
 
-	public int HP = 1;
-	float moveSpeed = -50;
+	public float moveSpeed = -50;
 	
+	public int HP = 1;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		
@@ -37,8 +34,6 @@ public class Enemy : Entity
 		velocity.x = moveSpeed;
 
 		MoveAndSlide(velocity, Vector2.Up);
-
-
 	}
 
 	void OnHit() 
@@ -54,6 +49,10 @@ public class Enemy : Entity
 	{
 		QueueFree(); 
 		GD.Print("Enemy Died.");
+		for (int i = 0; i < signals.Length; i++)
+        {
+            Game.level.EmitSignal(signals[i]);
+		}
 	}
 
 	private void _on_Hitbox_area_entered(Area2D area)
@@ -61,16 +60,8 @@ public class Enemy : Entity
 		if (area.GetParent().IsInGroup("PlayerBullet")) 
 		{
 			OnHit();
-		}
-		
+		}	
 	}
-
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }
 
 
