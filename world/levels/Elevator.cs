@@ -16,9 +16,9 @@ public class Elevator : AnimatedSprite
             _endElevator = value;
 
             if (value)
-                Close();
+                Animation = "closed";
             else
-                Open();
+                Animation = "open";
         }
     }
 
@@ -38,10 +38,10 @@ public class Elevator : AnimatedSprite
 
     public void Open()
     {
-        Animation = "open";
+        Animation = "opening";
     }
     public void Close()
     {
-        Animation = "closed";
+        Animation = "closing";
     }
 }

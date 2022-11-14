@@ -4,15 +4,13 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Enemy : Entity
 {
-	[Export] string[] signals = { "SignalEnemyDied" };
-
 	public float moveSpeed = -50;
 	
 	public int HP = 1;
 
 	public override void _Ready()
 	{
-		
+		Game.level.EmitSignal("SignalEnemyAdd");
 	}
 	
 	public override void _PhysicsProcess(float delta)
@@ -49,10 +47,7 @@ public class Enemy : Entity
 	{
 		QueueFree(); 
 		GD.Print("Enemy Died.");
-		for (int i = 0; i < signals.Length; i++)
-        {
-            Game.level.EmitSignal(signals[i]);
-		}
+		Game.level.EmitSignal("SignalEnemyDied");
 	}
 
 	private void _on_Hitbox_area_entered(Area2D area)

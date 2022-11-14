@@ -14,7 +14,9 @@ public class Game : Node2D
 		bulletSpace = GetNode<Node2D>("%BulletSpace");
 		player = GetNode<Player>("%Player");
 
-		level = (Level)GD.Load<PackedScene>(levelPath + "Level" + levelNumber + ".tscn").Instance() ;
+		level = (Level)GD.Load<PackedScene>(levelPath + "Level" + levelNumber + ".tscn").Instance();
+		GD.Print("CREATING");
+		level.Ready();
 		AddChild(level);
 	}
 }
