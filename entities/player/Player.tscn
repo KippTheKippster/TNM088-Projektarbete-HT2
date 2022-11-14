@@ -14,10 +14,11 @@ extents = Vector2( 8, 2 )
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-gravity = 300.0
-jumpStrength = 200.0
+gravity = 500.0
+jumpStrength = 150.0
 groundDeceleration = 8.0
 jumpGravityScale = 0.856
+holdDownTime = 0.15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -29,7 +30,7 @@ texture = ExtResource( 5 )
 unique_name_in_owner = true
 position = Vector2( 5, 4 )
 
-[node name="FloorCheck" type="Area2D" parent="."]
+[node name="FloorCheck" type="Area2D" parent="." groups=["FloorCheck"]]
 unique_name_in_owner = true
 position = Vector2( 0, 32 )
 collision_layer = 0
