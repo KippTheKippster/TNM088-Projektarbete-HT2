@@ -24,12 +24,16 @@ public abstract class LevelStipulation : Node
     }
 
 	public virtual void OnEnemyDied() {}
-
 	public virtual void OnEnemyAdd() {}
 }
 
 public class NoneStipulation : LevelStipulation
 {
+    public override void _Ready()
+    {
+		base._Ready();
+		level.Open();
+	}
 }
 
 public class KillAllStipulation : LevelStipulation
@@ -67,9 +71,9 @@ public class HitButtonsStipulation : LevelStipulation
 public class Level : Node2D
 {
 	[Signal] public delegate void SignalOpen();
-
 	[Signal] public delegate void SignalEnemyAdd();
 	[Signal] public delegate void SignalEnemyDied();
+	[Signal] public delegate void SignalNextLevel();
 
 	public Elevator startElevator;
 	public Elevator endElevator;
@@ -77,7 +81,7 @@ public class Level : Node2D
 
 	[Export(PropertyHint.Enum, "None,Kill all enemies,Hit all buttons")] int levelStipulationNumb;
 
-	public void Ready()
+	public override void _Ready()
 	{
 		startElevator = GetNode<Elevator>("%StartElevator");
 		endElevator = GetNode<Elevator>("%EndElevator");
@@ -86,7 +90,14 @@ public class Level : Node2D
 
 		Connect("SignalEnemyDied", levelStipulation, "OnEnemyDied");
 		Connect("SignalEnemyAdd", levelStipulation, "OnEnemyAdd");
+		endElevator.Connect("SignalNextLevel", this, nameof(NextLevel));
 	}
+
+	private void NextLevel()
+    {
+		GD.Print("NEXTING THE LEVELING");
+		EmitSignal(nameof(SignalNextLevel));
+    }
 
 	private void GetStipulation()
     {

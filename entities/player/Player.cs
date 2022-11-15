@@ -26,6 +26,7 @@ public class Player : Entity
 	int directionY;
 
 	bool isJumping;
+	public bool active = true;
 
 	public override void _Ready()
 	{
@@ -37,6 +38,9 @@ public class Player : Entity
 
 	public override void _PhysicsProcess(float delta)
 	{
+		if (!active)
+			return;
+
 		ReadInput();
 		Jump();
 		Move(delta);
