@@ -18,3 +18,5 @@ animation = "open"
 unique_name_in_owner = true
 position = Vector2( 64, 0 )
 EndElevator = true
+
+[node name="Enemies" type="Node2D" parent="."]

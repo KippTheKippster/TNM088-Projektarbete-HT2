@@ -22,10 +22,33 @@ public class Elevator : AnimatedSprite
         }
     }
 
+    [Signal] public delegate void SignalNextLevel();
+
     public override void _Ready()
     {
-        if (!_endElevator)
-            Game.player.GlobalPosition = GlobalPosition;
+        Playing = true;
+
+        if (!EndElevator)
+        {
+            Game.player.GlobalPosition = GlobalPosition + Vector2.Down * 16;
+            Game.player.active = false;
+            ZIndex = 6;
+
+            Timer timer = new Timer();
+            AddChild(timer);
+            timer.WaitTime = 0.1f;
+            timer.OneShot = true;
+            timer.Connect("timeout", this, nameof(Start));
+            timer.Start();
+
+            Animation = "closed";
+        }
+    }
+
+    private void Start()
+    {
+        GD.Print("Starting");
+        Open();
     }
 
     public override void _Process(float delta)
@@ -43,5 +66,38 @@ public class Elevator : AnimatedSprite
     public void Close()
     {
         Animation = "closing";
+    }
+
+    private void OnAnimationFinished()
+    {
+        if (Animation == "opening")
+        {
+            Animation = "open";
+
+            if (!_endElevator)
+            {
+                Game.player.active = true;
+                ZIndex = -1;
+            }
+        }
+
+        if (Animation == "closing")
+        {
+            Animation = "closed";
+        }
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body.IsInGroup("Player") && EndElevator && Animation == "open")
+        {
+            Player player = (Player)body;
+            player.GlobalPosition = GlobalPosition + 16 * Vector2.Down;
+            player.active = false;
+            ZIndex = 6;
+            Close();
+            EmitSignal("SignalNextLevel");
+            GD.Print("NextLevel");
+        }
     }
 }
