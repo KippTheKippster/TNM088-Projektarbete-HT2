@@ -8,7 +8,7 @@ public class Player : Entity
 	Timer jumpTimer;
 	Vector2 moveSpeed;
 	Vector2 targetMoveSpeed;
-	Vector2 externalSpeed;
+	public Vector2 externalSpeed;
 
 	[Export] readonly float speedX = 100f;
 	[Export] readonly float jumpStrength = 300f;

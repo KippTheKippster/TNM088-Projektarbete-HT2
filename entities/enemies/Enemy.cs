@@ -14,6 +14,8 @@ public class Enemy : Entity
 	
 	public int HP = 1;
 
+	public bool invincible;
+
 	public override void _Ready()
 	{
 		Game.level.EmitSignal("SignalEnemyAdd");

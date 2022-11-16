@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/guns/PlayerGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://entities/player/FloorCheck.cs" type="Script" id=3]
+[ext_resource path="res://entities/player/StompCheck.cs" type="Script" id=4]
 [ext_resource path="res://assets/textures/player/player.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -44,6 +45,18 @@ shape = SubResource( 2 )
 wait_time = 0.2
 one_shot = true
 
+[node name="StompCheck" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2( 0, 32 )
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompCheck"]
+position = Vector2( 0, -24 )
+shape = SubResource( 2 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
@@ -54,4 +67,5 @@ one_shot = true
 [connection signal="body_entered" from="FloorCheck" to="FloorCheck" method="OnFloorCheckEntered"]
 [connection signal="body_exited" from="FloorCheck" to="FloorCheck" method="OnFloorCheckExisted"]
 [connection signal="timeout" from="FloorCheck/DelayTimer" to="FloorCheck" method="OnDelayTimeout"]
+[connection signal="area_entered" from="StompCheck" to="StompCheck" method="OnStompCheckEntered"]
 [connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]
