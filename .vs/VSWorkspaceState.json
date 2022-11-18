@@ -11,6 +11,6 @@
     "\\world\\geometry",
     "\\world\\levels"
   ],
-  "SelectedNode": "\\entities\\player\\Player.cs",
+  "SelectedNode": "\\entities\\enemies\\Mouthman.tscn",
   "PreviewInSolutionExplorer": false
 }

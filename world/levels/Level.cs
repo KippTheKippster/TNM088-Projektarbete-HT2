@@ -19,9 +19,9 @@ public abstract class LevelStipulation : Node
 	internal Level level;
 
 	public override void _Ready()
-    {
+	{
 		level = (Level)GetParent();
-    }
+	}
 
 	public virtual void OnEnemyDied() {}
 	public virtual void OnEnemyAdd() {}
@@ -29,8 +29,8 @@ public abstract class LevelStipulation : Node
 
 public class NoneStipulation : LevelStipulation
 {
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		base._Ready();
 		level.Open();
 	}
@@ -51,13 +51,13 @@ public class KillAllStipulation : LevelStipulation
 		}
 	}
 
-    public override void OnEnemyAdd()
-    {
-        enemyCount++;
-        maxEnemyCount++;
+	public override void OnEnemyAdd()
+	{
+		enemyCount++;
+		maxEnemyCount++;
 
 		GD.Print("ONENEMYADD");
-    }
+	}
 }
 
 public class HitButtonsStipulation : LevelStipulation
@@ -94,12 +94,12 @@ public class Level : Node2D
 	}
 
 	private void NextLevel()
-    {
+	{
 		EmitSignal(nameof(SignalNextLevel));
-    }
+	}
 
 	private void GetStipulation()
-    {
+	{
 		switch (levelStipulationNumb)
 		{
 			case 0:
@@ -128,7 +128,7 @@ public class Level : Node2D
 	}
 
 	void OnEnemyAdd()
-    {
+	{
 		GD.Print("SELFENEMYADD");
-    }
+	}
 }

@@ -112,24 +112,24 @@ public class Player : Entity
 		{
 			gravityScale = jumpGravityScale;
 			if (floorCheck.IsOnFloor)
-            {
-                isJumping = true;
-                jumpTimer.Start();
-            }
-        }
+			{
+				isJumping = true;
+				jumpTimer.Start();
+			}
+		}
 		else if (Input.IsActionJustReleased("jump"))
-        {
-            isJumping = false;
+		{
+			isJumping = false;
 			gravityScale = 1.0f;
-        }
+		}
 
-        if (isJumping)
+		if (isJumping)
 			externalSpeed.y = -jumpStrength;
 	}
 
 	public void OnJumpTimerTimeout()
 	{
-        isJumping = false;
+		isJumping = false;
 	}
 
 	private void Gun()

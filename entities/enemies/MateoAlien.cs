@@ -5,32 +5,32 @@ using System.Security.Cryptography.X509Certificates;
 [Tool]
 public class MateoAlien : Enemy
 {
-    private bool _flipped;
-    [Export] public bool Flipped
-    {
-        get
-        {
-            return _flipped;
-        }
-        set
-        {
-            _flipped = value;
-            GetNode<AnimatedSprite>("%Sprite").FlipH = value;
+	private bool _flipped;
+	[Export] public bool Flipped
+	{
+		get
+		{
+			return _flipped;
+		}
+		set
+		{
+			_flipped = value;
+			GetNode<AnimatedSprite>("%Sprite").FlipH = value;
 
-            if (value)
-                moveSpeed = Mathf.Abs(moveSpeed) * -1;
-            else
-                moveSpeed = Mathf.Abs(moveSpeed);
-        }
-    }
+			if (value)
+				moveSpeed = Mathf.Abs(moveSpeed) * -1;
+			else
+				moveSpeed = Mathf.Abs(moveSpeed);
+		}
+	}
 
-    public override void _PhysicsProcess(float delta)
-    {
-        if (!Engine.EditorHint)
-        {
-            base._PhysicsProcess(delta);
-        }
-    }
+	public override void _PhysicsProcess(float delta)
+	{
+		if (!Engine.EditorHint)
+		{
+			base._PhysicsProcess(delta);
+		}
+	}
 
 	private void _on_Hitbox_area_entered(Area2D area)
 	{
@@ -44,10 +44,10 @@ public class MateoAlien : Enemy
 	
 	private void OnRightCheckEntered(Area2D area)
 	{
-        Flipped = true;
+		Flipped = true;
 	}
-    
-    private void OnLeftCheckEntered(Area2D area)
+	
+	private void OnLeftCheckEntered(Area2D area)
 	{
 		Flipped = false;
 	}

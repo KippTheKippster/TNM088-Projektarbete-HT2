@@ -18,7 +18,7 @@ public class Game : Node2D
 	} 
 
 	public void NextLevel()
-    {
+	{
 		if (level != null)
 			level.QueueFree();
 

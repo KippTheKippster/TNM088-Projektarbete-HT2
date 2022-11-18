@@ -76,6 +76,7 @@ visible = false
 
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
 [node name="Hitbox" parent="." index="2" groups=["stompable"]]
