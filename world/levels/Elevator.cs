@@ -96,8 +96,19 @@ public class Elevator : AnimatedSprite
             player.active = false;
             ZIndex = 6;
             Close();
-            EmitSignal("SignalNextLevel");
-            GD.Print("NextLevel");
+
+            Timer timer = new Timer();
+            AddChild(timer);
+            timer.WaitTime = 0.4f;
+            timer.OneShot = true;
+            timer.Connect("timeout", this, nameof(NextLevel));
+            timer.Start();
         }
+    }
+
+    private void NextLevel()
+    {
+        EmitSignal("SignalNextLevel");
+        GD.Print("NextLevel");
     }
 }

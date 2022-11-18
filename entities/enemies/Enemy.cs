@@ -10,7 +10,7 @@ public class Enemy : Entity
 
 	[Export] string[] signals = { "SignalEnemyDied" };
 
-	public readonly float moveSpeed = -50;
+	public float moveSpeed = -50;
 	
 	public int HP = 1;
 
@@ -18,6 +18,7 @@ public class Enemy : Entity
 
 	public override void _Ready()
 	{
+		GD.Print("ADDING!");
 		Game.level.EmitSignal("SignalEnemyAdd");
 		sprite = GetNode<AnimatedSprite>("%Sprite");
 	}

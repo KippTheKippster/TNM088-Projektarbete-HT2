@@ -11,11 +11,9 @@ tile_data = PoolIntArray( -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0
 
 [node name="StartElevator" parent="." index="1"]
 position = Vector2( -104, 48 )
-playing = true
 
 [node name="EndElevator" parent="." index="2"]
 position = Vector2( 216, -48 )
-playing = true
 
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 2 )]
 position = Vector2( 40, 24 )

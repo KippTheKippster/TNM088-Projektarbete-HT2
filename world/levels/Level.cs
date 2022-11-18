@@ -95,7 +95,6 @@ public class Level : Node2D
 
 	private void NextLevel()
     {
-		GD.Print("NEXTING THE LEVELING");
 		EmitSignal(nameof(SignalNextLevel));
     }
 

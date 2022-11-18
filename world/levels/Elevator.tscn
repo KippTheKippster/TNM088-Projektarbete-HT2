@@ -88,6 +88,7 @@ extents = Vector2( 6.5, 10.5 )
 [node name="Elevator" type="AnimatedSprite"]
 frames = SubResource( 15 )
 animation = "closed"
+playing = true
 script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
