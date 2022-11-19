@@ -125,7 +125,7 @@ public class Level : Node2D
 
 	public void Open()
 	{
-		endElevator.Open();
+		endElevator.OpenEndElevator();
 	}
 
 	void OnEnemyAdd()

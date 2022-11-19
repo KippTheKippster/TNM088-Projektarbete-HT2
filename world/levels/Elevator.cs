@@ -100,4 +100,18 @@ public class Elevator : AnimatedSprite
             GD.Print("NextLevel");
         }
     }
+
+    public void OpenEndElevator()
+    {
+        Open();
+        GetNode<Timer>("Timer").Start();
+        _on_Timer_timeout();
+    }
+
+    private void _on_Timer_timeout()
+    {
+        Circle circle = (Circle)GD.Load<PackedScene>("res://effects/Circle.tscn").Instance();
+        AddChild(circle);
+        GD.Print("DJWAPOI10");
+    }
 }

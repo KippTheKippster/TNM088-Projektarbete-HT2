@@ -88,6 +88,7 @@ extents = Vector2( 6.5, 10.5 )
 [node name="Elevator" type="AnimatedSprite"]
 frames = SubResource( 15 )
 animation = "closed"
+playing = true
 script = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -96,5 +97,8 @@ script = ExtResource( 2 )
 position = Vector2( 0, 20.5 )
 shape = SubResource( 16 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="." to="." method="OnAnimationFinished"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
