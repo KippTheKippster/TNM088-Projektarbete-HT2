@@ -114,20 +114,14 @@ moveSpeed = 0.0
 [node name="CollisionShape2D" parent="." index="0"]
 visible = false
 
-[node name="CollisionShape2D" parent="." index="0"]
-visible = false
-
 [node name="Sprite" parent="." index="1"]
 material = SubResource( 14 )
 scale = Vector2( 1, 0.99538 )
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
-<<<<<<< HEAD
 [node name="Hitbox" parent="." index="2"]
-=======
-[node name="Hitbox" parent="." index="2" groups=["stompable"]]
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 visible = false
 
 [connection signal="SignalOnHitboxEntered" from="." to="." method="OnHitboxEntered"]

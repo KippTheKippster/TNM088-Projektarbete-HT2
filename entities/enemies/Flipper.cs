@@ -30,10 +30,7 @@ public class Flipper : Enemy
             flipped = true;
             sprite.Animation = "flipping";
             AddToGroup("stompable");
-<<<<<<< HEAD
             hitbox.AddToGroup("stompable");
-=======
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
         }
     }
 

@@ -13,11 +13,7 @@ region = Rect2( 0, 0, 16, 16 )
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 16, 16 )
 
-<<<<<<< HEAD
 [sub_resource type="AtlasTexture" id=9]
-=======
-[sub_resource type="AtlasTexture" id=3]
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 atlas = ExtResource( 2 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -36,11 +32,7 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-<<<<<<< HEAD
 "frames": [ SubResource( 2 ), SubResource( 9 ), SubResource( 4 ), SubResource( 5 ) ],
-=======
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 "loop": true,
 "name": "walk",
 "speed": 8.0
@@ -56,10 +48,7 @@ Flipped = false
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 6 )
 animation = "walk"
-<<<<<<< HEAD
 frame = 3
-=======
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 playing = true
 
 [node name="RightCheck" type="Area2D" parent="." index="3"]

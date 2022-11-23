@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 [gd_scene load_steps=8 format=2]
-=======
-[gd_scene load_steps=4 format=2]
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 
 [ext_resource path="res://world/levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/MateoAlien.tscn" type="PackedScene" id=2]
@@ -38,11 +34,7 @@ shader_param/flash_shift = 0.0
 levelStipulationNumb = 1
 
 [node name="TileMap" parent="." index="0"]
-<<<<<<< HEAD
 tile_data = PoolIntArray( -65522, 0, 0, -65519, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 131067, 0, 0, 65540, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
-=======
-tile_data = PoolIntArray( -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 131067, 0, 0, 65540, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 
 [node name="EndElevator" parent="." index="2"]
 position = Vector2( 152, -16 )
@@ -50,7 +42,6 @@ position = Vector2( 152, -16 )
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 3 )]
 material = SubResource( 4 )
 position = Vector2( 40, 24 )
-<<<<<<< HEAD
 scale = Vector2( 1, 1 )
 
 [node name="MateoAlien" parent="Enemies" index="1" instance=ExtResource( 2 )]
@@ -61,9 +52,3 @@ Flipped = true
 [node name="DeathBlock" parent="." index="4"]
 position = Vector2( 164, 96 )
 scale = Vector2( 51.5, 1 )
-=======
-
-[node name="MateoAlien" parent="Enemies" index="1" instance=ExtResource( 2 )]
-position = Vector2( 8, 21 )
-Flipped = true
->>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
