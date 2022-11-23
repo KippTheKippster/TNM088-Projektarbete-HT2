@@ -37,8 +37,12 @@ unique_name_in_owner = true
 use_parent_material = true
 frames = SubResource( 6 )
 
+<<<<<<< HEAD
 [node name="Hitbox" type="Area2D" parent="." groups=["hurt"]]
 unique_name_in_owner = true
+=======
+[node name="Hitbox" type="Area2D" parent="."]
+>>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 collision_layer = 2
 collision_mask = 0
 

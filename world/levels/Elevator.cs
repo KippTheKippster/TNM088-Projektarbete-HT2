@@ -96,7 +96,10 @@ public class Elevator : AnimatedSprite
             player.active = false;
             ZIndex = 6;
             Close();
+<<<<<<< HEAD
             player.model.Animation = "Idle";
+=======
+>>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
 
             Timer timer = new Timer();
             AddChild(timer);
@@ -107,6 +110,7 @@ public class Elevator : AnimatedSprite
         }
     }
 
+<<<<<<< HEAD
     public void OpenEndElevator()
     {
         Open();
@@ -120,6 +124,8 @@ public class Elevator : AnimatedSprite
         AddChild(circle);
     }
 
+=======
+>>>>>>> c72ab8fbf5c6badc35a17b648d174175981739cd
     private void NextLevel()
     {
         EmitSignal("SignalNextLevel");
