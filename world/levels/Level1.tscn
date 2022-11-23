@@ -1,20 +1,54 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://world/levels/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/MateoAlien.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/Flipper.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/FlashShader.gdshader" type="Shader" id=5]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec4 flash_color : hint_color = vec4(1.0);
+uniform float flash_shift : hint_range(0.0, 1.0) = 0.0;
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	color.rgb = mix(color.rgb, flash_color.rgb, flash_shift);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shift = 0.0
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shift = 0.0
 
 [node name="Level1" instance=ExtResource( 1 )]
 levelStipulationNumb = 1
 
 [node name="TileMap" parent="." index="0"]
-tile_data = PoolIntArray( -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 131067, 0, 0, 65540, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
-
-[node name="StartElevator" parent="." index="1"]
-playing = true
+tile_data = PoolIntArray( -65522, 0, 0, -65519, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 131067, 0, 0, 65540, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
 
 [node name="EndElevator" parent="." index="2"]
 position = Vector2( 152, -16 )
-playing = true
 
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 3 )]
+material = SubResource( 4 )
 position = Vector2( 40, 24 )
+scale = Vector2( 1, 1 )
+
+[node name="MateoAlien" parent="Enemies" index="1" instance=ExtResource( 2 )]
+material = SubResource( 2 )
+position = Vector2( 256, -7 )
+Flipped = true
+
+[node name="DeathBlock" parent="." index="4"]
+position = Vector2( 164, 96 )
+scale = Vector2( 51.5, 1 )

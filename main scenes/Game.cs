@@ -25,8 +25,15 @@ public class Game : Node2D
 		levelNumber++;	
 		level = (Level)GD.Load<PackedScene>(levelPath + "Level" + levelNumber + ".tscn").Instance();
 		GD.Print("Next level: " + levelNumber);
-		//AddChild(level);
+		level.Ready();
 		CallDeferred("add_child", level);
 		level.Connect("SignalNextLevel", this, nameof(NextLevel));
+		level.Connect("SignalRestart", this, nameof(Restart));
 	}
+
+	public void Restart()
+    {
+		levelNumber--;
+		NextLevel();
+    }
 }

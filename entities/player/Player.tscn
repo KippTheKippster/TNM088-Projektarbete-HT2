@@ -1,37 +1,144 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://entities/guns/PlayerGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://entities/player/FloorCheck.cs" type="Script" id=3]
+[ext_resource path="res://entities/player/StompCheck.cs" type="Script" id=4]
 [ext_resource path="res://assets/textures/player/player.png" type="Texture" id=5]
+[ext_resource path="res://entities/bullets/ChargeBullet.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/player/PlayerHitbox.cs" type="Script" id=7]
+[ext_resource path="res://assets/textures/effects/FullChargeEffect.png" type="Texture" id=8]
+[ext_resource path="res://assets/textures/effects/HalfChargeEffect.png" type="Texture" id=9]
+[ext_resource path="res://assets/textures/player/MainPlayerWalk.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 10 )
+region = Rect2( 18, 0, 18, 18 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 18, 18 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ) ],
+"loop": true,
+"name": "InAir",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 7.0
+} ]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 12, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 9 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Full",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Half",
+"speed": 10.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 2 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 3, 5.5 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_layer = 4
 script = ExtResource( 2 )
-gravity = 500.0
-jumpStrength = 150.0
+gravity = 800.0
+speedX = 140.0
+jumpStrength = 175.0
 groundDeceleration = 8.0
+gunKnockback = 160.0
+chargeKnockback = 360.0
 jumpGravityScale = 0.856
-holdDownTime = 0.15
+holdDownTime = 0.175
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
-[node name="Model" type="Sprite" parent="."]
-texture = ExtResource( 5 )
-
-[node name="PlayerGun" parent="Model" instance=ExtResource( 1 )]
+[node name="Model" type="AnimatedSprite" parent="."]
 unique_name_in_owner = true
+frames = SubResource( 9 )
+animation = "Idle"
+playing = true
+
+[node name="Guns" type="Node2D" parent="Model"]
+
+[node name="PlayerGun" parent="Model/Guns" instance=ExtResource( 1 )]
+unique_name_in_owner = true
+position = Vector2( 1, 0 )
+
+[node name="ChargeEffect" type="AnimatedSprite" parent="Model/Guns/PlayerGun"]
+unique_name_in_owner = true
+visible = false
+position = Vector2( 7, -1 )
+frames = SubResource( 8 )
+animation = "Full"
+frame = 1
+playing = true
+
+[node name="ChargeGun" parent="Model/Guns" instance=ExtResource( 1 )]
+unique_name_in_owner = true
+visible = false
 position = Vector2( 5, 4 )
+Speed = 300.0
+bulletScene = ExtResource( 6 )
+
+[node name="ChargeTimer" type="Timer" parent="Model/Guns"]
+unique_name_in_owner = true
+wait_time = 0.75
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="Model/Guns"]
+unique_name_in_owner = true
+wait_time = 0.5
 
 [node name="FloorCheck" type="Area2D" parent="." groups=["FloorCheck"]]
 unique_name_in_owner = true
+visible = false
 position = Vector2( 0, 32 )
 collision_layer = 0
 script = ExtResource( 3 )
@@ -44,14 +151,46 @@ shape = SubResource( 2 )
 wait_time = 0.2
 one_shot = true
 
+[node name="StompCheck" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2( 0, 32 )
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompCheck"]
+position = Vector2( 0, -24 )
+shape = SubResource( 2 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
 [node name="JumpTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.25
 one_shot = true
 
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 3 )
+
+[node name="DeathTimer" type="Timer" parent="Hitbox"]
+unique_name_in_owner = true
+wait_time = 0.278
+one_shot = true
+
+[connection signal="timeout" from="Model/Guns/ChargeTimer" to="." method="OnChargeTimerTimeout"]
+[connection signal="timeout" from="Model/Guns/ReloadTimer" to="." method="Reload"]
 [connection signal="body_entered" from="FloorCheck" to="FloorCheck" method="OnFloorCheckEntered"]
 [connection signal="body_exited" from="FloorCheck" to="FloorCheck" method="OnFloorCheckExisted"]
 [connection signal="timeout" from="FloorCheck/DelayTimer" to="FloorCheck" method="OnDelayTimeout"]
+[connection signal="area_entered" from="StompCheck" to="StompCheck" method="OnStompCheckEntered"]
 [connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]
+[connection signal="timeout" from="Hitbox/DeathTimer" to="." method="_on_DeathTimer_timeout"]

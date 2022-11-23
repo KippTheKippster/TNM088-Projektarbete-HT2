@@ -3,7 +3,7 @@ using System;
 
 public class Flipper : Enemy
 {
-    bool invincible;
+    bool flipped;
 
     public override void _Ready()
     {
@@ -27,15 +27,20 @@ public class Flipper : Enemy
         else
         {
             invincible = true;
+            flipped = true;
             sprite.Animation = "flipping";
+            AddToGroup("stompable");
+            hitbox.AddToGroup("stompable");
         }
     }
 
     private void OnHitboxEntered(Area2D area)
     {
-        if (area.IsInGroup("FloorCheck"))
-            if (invincible)
-                Kill();
+        //if (area.IsInGroup("FloorCheck"))
+        {
+            //if (flipped && ((Player)area.GetParent()).velocity.y > 0)
+                //Kill();
+        }
     }
 
     private void OnAnimationFinished()

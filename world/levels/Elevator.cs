@@ -96,8 +96,14 @@ public class Elevator : AnimatedSprite
             player.active = false;
             ZIndex = 6;
             Close();
-            EmitSignal("SignalNextLevel");
-            GD.Print("NextLevel");
+            player.model.Animation = "Idle";
+
+            Timer timer = new Timer();
+            AddChild(timer);
+            timer.WaitTime = 0.4f;
+            timer.OneShot = true;
+            timer.Connect("timeout", this, nameof(NextLevel));
+            timer.Start();
         }
     }
 
@@ -112,6 +118,11 @@ public class Elevator : AnimatedSprite
     {
         Circle circle = (Circle)GD.Load<PackedScene>("res://effects/Circle.tscn").Instance();
         AddChild(circle);
-        GD.Print("DJWAPOI10");
+    }
+
+    private void NextLevel()
+    {
+        EmitSignal("SignalNextLevel");
+        GD.Print("NextLevel");
     }
 }
