@@ -41,14 +41,21 @@ position = Vector2( 152, -16 )
 
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 3 )]
 material = SubResource( 4 )
-position = Vector2( 40, 24 )
-scale = Vector2( 1, 1 )
+position = Vector2( 32, 24 )
 
-[node name="MateoAlien" parent="Enemies" index="1" instance=ExtResource( 2 )]
+[node name="Flipper2" parent="Enemies" index="1" instance=ExtResource( 3 )]
+material = SubResource( 4 )
+position = Vector2( 48, 24 )
+
+[node name="Flipper3" parent="Enemies" index="2" instance=ExtResource( 3 )]
+material = SubResource( 4 )
+position = Vector2( -40, 24 )
+
+[node name="Flipper4" parent="Enemies" index="3" instance=ExtResource( 3 )]
+material = SubResource( 4 )
+position = Vector2( -24, 24 )
+
+[node name="MateoAlien" parent="Enemies" index="4" instance=ExtResource( 2 )]
 material = SubResource( 2 )
 position = Vector2( 256, -7 )
 Flipped = true
-
-[node name="DeathBlock" parent="." index="4"]
-position = Vector2( 164, 96 )
-scale = Vector2( 51.5, 1 )

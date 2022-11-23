@@ -108,6 +108,7 @@ animations = [ {
 
 [node name="Flipper" instance=ExtResource( 1 )]
 material = SubResource( 16 )
+scale = Vector2( 1, 1 )
 script = ExtResource( 5 )
 moveSpeed = 0.0
 
@@ -116,7 +117,7 @@ visible = false
 
 [node name="Sprite" parent="." index="1"]
 material = SubResource( 14 )
-scale = Vector2( 1, 0.99538 )
+position = Vector2( 0, 1.01328e-06 )
 frames = SubResource( 1 )
 frame = 1
 playing = true

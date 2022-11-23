@@ -14,16 +14,16 @@ tile_data = PoolIntArray( 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0
 [node name="StartElevator" parent="." instance=ExtResource( 2 )]
 unique_name_in_owner = true
 animation = "open"
-playing = true
 
 [node name="EndElevator" parent="." instance=ExtResource( 2 )]
 unique_name_in_owner = true
 position = Vector2( 64, 0 )
-playing = true
 EndElevator = true
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="DeathBlock" parent="." instance=ExtResource( 4 )]
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="DeathBlock" parent="Obstacles" instance=ExtResource( 4 )]
 position = Vector2( 32, 96 )
 scale = Vector2( 12, 1 )

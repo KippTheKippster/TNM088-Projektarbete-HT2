@@ -31,16 +31,6 @@ public class MateoAlien : Enemy
             base._PhysicsProcess(delta);
         }
     }
-
-	private void _on_Hitbox_area_entered(Area2D area)
-	{
-		EmitSignal(nameof(SignalOnHitboxEntered), area);
-		if (area.GetParent().IsInGroup("PlayerBullet")) 
-		{
-			OnHit();
-			area.GetParent().QueueFree();
-		}
-	}
 	
 	private void OnRightCheckEntered(Area2D area)
 	{

@@ -5,6 +5,7 @@ public class Gun : Node2D
 {
     [Export] private readonly PackedScene bulletScene;
     [Export] public float Speed { get; set; } = 200f;
+    [Export] public int Damage { get; set; } = 1;
     [Export] public bool RotateSprite { get; set; } = true;
 
     private Bullet CreateBullet(Vector2 position)
@@ -14,6 +15,7 @@ public class Gun : Node2D
         bullet.GlobalPosition = position;
         bullet.RotateSprite = RotateSprite;
         bullet.Speed = Speed;
+        bullet.Damage = Damage;
 
         return bullet;
     }

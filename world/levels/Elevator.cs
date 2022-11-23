@@ -24,9 +24,13 @@ public class Elevator : AnimatedSprite
 
     [Signal] public delegate void SignalNextLevel();
 
+    CollisionShape2D collisionShape;
+
     public override void _Ready()
     {
         Playing = true;
+        collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
+        collisionShape.Disabled = true;
 
         if (!EndElevator)
         {
@@ -112,6 +116,8 @@ public class Elevator : AnimatedSprite
         Open();
         GetNode<Timer>("Timer").Start();
         _on_Timer_timeout();
+        //collisionShape.Disabled = false;
+        collisionShape.SetDeferred("disabled", false);
     }
 
     private void _on_Timer_timeout()

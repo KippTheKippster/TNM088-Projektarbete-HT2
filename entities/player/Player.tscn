@@ -125,6 +125,7 @@ unique_name_in_owner = true
 visible = false
 position = Vector2( 5, 4 )
 Speed = 300.0
+Damage = 3
 bulletScene = ExtResource( 6 )
 
 [node name="ChargeTimer" type="Timer" parent="Model/Guns"]
@@ -158,6 +159,8 @@ position = Vector2( 0, 32 )
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 4 )
+jumpStrength = 160.0
+holdDownStrength = 260.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompCheck"]
 position = Vector2( 0, -24 )

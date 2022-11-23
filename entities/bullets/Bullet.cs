@@ -20,6 +20,7 @@ public class Bullet : Node2D
 	}
 
 	public float Speed { get; set; } = 100f;
+	public int Damage { get; set; } = 1;	
 	public bool RotateSprite;
 
 	private Vector2 _moveVector;
