@@ -5,6 +5,10 @@
 
 [node name="Level2" instance=ExtResource( 1 )]
 
+[node name="CameraLimit" parent="." index="0"]
+position = Vector2( -136, -192 )
+scale = Vector2( 6.875, 5.375 )
+
 [node name="TempPlatform" parent="Obstacles" index="1" instance=ExtResource( 2 )]
 position = Vector2( 144, 24 )
 

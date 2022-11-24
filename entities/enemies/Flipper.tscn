@@ -108,7 +108,6 @@ animations = [ {
 
 [node name="Flipper" instance=ExtResource( 1 )]
 material = SubResource( 16 )
-scale = Vector2( 1, 1 )
 script = ExtResource( 5 )
 moveSpeed = 0.0
 

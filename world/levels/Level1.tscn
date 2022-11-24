@@ -33,19 +33,17 @@ shader_param/flash_shift = 0.0
 [node name="Level1" instance=ExtResource( 1 )]
 levelStipulationNumb = 1
 
-[node name="TileMap" parent="." index="0"]
-tile_data = PoolIntArray( -65522, 0, 0, -65519, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 131067, 0, 0, 65540, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
-
-[node name="EndElevator" parent="." index="2"]
-position = Vector2( 152, -16 )
+[node name="CameraLimit" parent="." index="0"]
+position = Vector2( -128, -264 )
+scale = Vector2( 10.375, 5.375 )
 
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 3 )]
 material = SubResource( 4 )
-position = Vector2( 32, 24 )
+position = Vector2( 24, 24 )
 
 [node name="Flipper2" parent="Enemies" index="1" instance=ExtResource( 3 )]
 material = SubResource( 4 )
-position = Vector2( 48, 24 )
+position = Vector2( 40, 24 )
 
 [node name="Flipper3" parent="Enemies" index="2" instance=ExtResource( 3 )]
 material = SubResource( 4 )
@@ -57,5 +55,16 @@ position = Vector2( -24, 24 )
 
 [node name="MateoAlien" parent="Enemies" index="4" instance=ExtResource( 2 )]
 material = SubResource( 2 )
-position = Vector2( 256, -7 )
+position = Vector2( 256, -8 )
+moveSpeed = -50.0
 Flipped = true
+
+[node name="DeathBlock" parent="Obstacles" index="0"]
+position = Vector2( 262, 152 )
+scale = Vector2( 72.25, 1.25 )
+
+[node name="Geometry" parent="Tilemaps" index="3"]
+tile_data = PoolIntArray( -65523, 0, 0, -65518, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 131067, 0, 0, 65540, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
+
+[node name="EndElevator" parent="." index="5"]
+position = Vector2( 152, -16 )

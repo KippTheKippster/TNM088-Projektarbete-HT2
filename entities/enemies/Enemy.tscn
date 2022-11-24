@@ -25,7 +25,6 @@ extents = Vector2( 8, 8 )
 
 [node name="Enemy" type="KinematicBody2D"]
 material = ExtResource( 3 )
-scale = Vector2( 1.02007, 0.930618 )
 collision_layer = 0
 script = ExtResource( 2 )
 

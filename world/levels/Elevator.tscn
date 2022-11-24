@@ -97,6 +97,7 @@ script = ExtResource( 2 )
 unique_name_in_owner = true
 position = Vector2( 0, 20.5 )
 shape = SubResource( 16 )
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
 
