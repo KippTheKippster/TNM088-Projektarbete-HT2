@@ -87,7 +87,7 @@ extents = Vector2( 3, 5.5 )
 collision_layer = 4
 script = ExtResource( 2 )
 gravity = 800.0
-speedX = 140.0
+speedX = 110.0
 jumpStrength = 175.0
 groundDeceleration = 8.0
 airDeceleration = 2.5
@@ -104,6 +104,7 @@ shape = SubResource( 1 )
 unique_name_in_owner = true
 frames = SubResource( 9 )
 animation = "Run"
+frame = 1
 playing = true
 
 [node name="Guns" type="Node2D" parent="Model"]
@@ -118,6 +119,7 @@ visible = false
 position = Vector2( 7, -1 )
 frames = SubResource( 8 )
 animation = "Full"
+frame = 1
 playing = true
 
 [node name="ChargeGun" parent="Model/Guns" instance=ExtResource( 1 )]
