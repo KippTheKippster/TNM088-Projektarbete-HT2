@@ -2,11 +2,14 @@ using Godot;
 using System;
 
 
+
 public class Mouthman : Enemy
 {
 	// Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
+
+	// public float moveSpeed = -10;
 	
 
 	// Called when the node enters the scene tree for the first time.
@@ -18,15 +21,70 @@ public class Mouthman : Enemy
 	
 	private void Move(float delta) 
 	{ 
-		var player = (KinematicBody2D)GetNode("/root/Game/Player");
-		var mouthman = (KinematicBody2D)GetNode("Mouthman");
+		Vector2 playerPos = Game.player.GlobalPosition;
 
-		
-		
-		
-		velocity.x = moveSpeed;
+		float totalVelocity = (float)Math.Sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+		// normal hastighet ar typ 250
+		float vMax = 200;
 
-		MoveAndSlide(velocity, Vector2.Up);
+		totalVelocity = Mathf.Min(totalVelocity, vMax);
+
+		moveSpeed = -4 ;
+		Vector2 posDiff = playerPos - GlobalPosition;
+
+		float xdiff = posDiff.x;
+		float ydiff = posDiff.y;
+
+		float airres = (1.0f - totalVelocity / vMax);
+
+        if (GlobalPosition.x > playerPos.x)
+		{
+			velocity.x += xdiff;
+        }
+		else 
+		{
+            velocity.x += xdiff;
+        }
+        if (GlobalPosition.y > playerPos.y)
+        {
+            velocity.y += ydiff;
+        }
+        else
+        {
+            velocity.y += ydiff;
+        }
+		velocity.x *= airres;
+		velocity.y *= airres;
+
+		/*
+
+		if (velocity.x > vMax) 
+		{
+			velocity.x = vMax;
+		}
+        if (velocity.y  > vMax)
+        {
+            velocity.y = vMax;
+        }
+        if (velocity.x < -vMax)
+        {
+            velocity.x = -vMax;
+        }
+        if (velocity.y < -vMax)
+        {
+            velocity.y = -vMax;
+        }
+		*/
+
+        GD.Print(velocity.y);
+        GD.Print(velocity.x);
+
+
+
+
+
+
+        MoveAndSlide(velocity, Vector2.Up);
 	}
 
 
