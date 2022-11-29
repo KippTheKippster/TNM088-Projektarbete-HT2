@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/enemies/FlipperFlip3.png" type="Texture" id=2]
@@ -6,11 +6,49 @@
 [ext_resource path="res://assets/textures/enemies/Flipper.png" type="Texture" id=4]
 [ext_resource path="res://entities/enemies/Flipper.cs" type="Script" id=5]
 
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec4 flash_color : hint_color = vec4(1.0);
+uniform float flash_shift : hint_range(0.0, 1.0) = 0.0;
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	color.rgb = mix(color.rgb, flash_color.rgb, flash_shift);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=16]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shift = 0.0
+
+[sub_resource type="Shader" id=17]
+code = "shader_type canvas_item;
+
+uniform vec4 flash_color : hint_color = vec4(1.0);
+uniform float flash_shif : hint_range(0.0, 1.0) = 0.0;
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	color.rgb = mix(color.rgb, flash_color.rgb, flash_shif);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+resource_local_to_scene = true
+shader = SubResource( 17 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shif = 0.0
+
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
 region = Rect2( 16, 0, 16, 16 )
 
@@ -52,7 +90,7 @@ region = Rect2( 192, 0, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 2 ), SubResource( 15 ) ],
 "loop": true,
 "name": "default",
 "speed": 3.0
@@ -69,17 +107,21 @@ animations = [ {
 } ]
 
 [node name="Flipper" instance=ExtResource( 1 )]
+material = SubResource( 16 )
 script = ExtResource( 5 )
+moveSpeed = 0.0
 
 [node name="CollisionShape2D" parent="." index="0"]
 visible = false
 
 [node name="Sprite" parent="." index="1"]
+material = SubResource( 14 )
+position = Vector2( 0, 1.01328e-06 )
 frames = SubResource( 1 )
 frame = 1
 playing = true
 
-[node name="Hitbox" parent="." index="2" groups=["stompable"]]
+[node name="Hitbox" parent="." index="2"]
 visible = false
 
 [connection signal="SignalOnHitboxEntered" from="." to="." method="OnHitboxEntered"]

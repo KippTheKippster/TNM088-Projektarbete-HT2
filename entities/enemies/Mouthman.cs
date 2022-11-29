@@ -5,6 +5,7 @@ using System;
 
 public class Mouthman : Enemy
 {
+
 	// Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
@@ -25,64 +26,32 @@ public class Mouthman : Enemy
 
 		float totalVelocity = (float)Math.Sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
 		// normal hastighet ar typ 250
-		float vMax = 200;
+		
 
-		totalVelocity = Mathf.Min(totalVelocity, vMax);
+		moveSpeed = 500;
+		float maxSpeed = 300;
 
-		moveSpeed = -4 ;
-		Vector2 posDiff = playerPos - GlobalPosition;
+		float airRes =  1 -(totalVelocity / maxSpeed);
 
-		float xdiff = posDiff.x;
-		float ydiff = posDiff.y;
+        // ny losning
 
-		float airres = (1.0f - totalVelocity / vMax);
+        // anvand posDiff for att fa fram en vektor som pekar pa spelaren
 
-        if (GlobalPosition.x > playerPos.x)
-		{
-			velocity.x += xdiff;
-        }
-		else 
-		{
-            velocity.x += xdiff;
-        }
-        if (GlobalPosition.y > playerPos.y)
-        {
-            velocity.y += ydiff;
-        }
-        else
-        {
-            velocity.y += ydiff;
-        }
-		velocity.x *= airres;
-		velocity.y *= airres;
+        Vector2 posDiff = playerPos - GlobalPosition;
+		posDiff.y += -6;
 
-		/*
+		// normalisera vektorn
 
-		if (velocity.x > vMax) 
-		{
-			velocity.x = vMax;
-		}
-        if (velocity.y  > vMax)
-        {
-            velocity.y = vMax;
-        }
-        if (velocity.x < -vMax)
-        {
-            velocity.x = -vMax;
-        }
-        if (velocity.y < -vMax)
-        {
-            velocity.y = -vMax;
-        }
-		*/
+		posDiff = posDiff.Normalized();
 
-        GD.Print(velocity.y);
-        GD.Print(velocity.x);
+        // multiplicera med moveSpeed
 
+		velocity += posDiff * delta * moveSpeed * airRes;
 
-
-
-
+		if (IsOnFloor() || IsOnCeiling())
+			velocity.y = 0.0f;
+        if (IsOnWall())
+            velocity.x = 0.0f;
 
         MoveAndSlide(velocity, Vector2.Up);
 	}

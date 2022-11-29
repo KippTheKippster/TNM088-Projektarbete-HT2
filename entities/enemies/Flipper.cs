@@ -18,20 +18,38 @@ public class Flipper : Enemy
 
 	}
 
-	public override void OnHit()
-	{
-		if (invincible)
-		{
+    public override void _on_Hitbox_area_entered(Area2D area)
+    {
+        EmitSignal(nameof(SignalOnHitboxEntered), area);
+        if (area.GetParent().IsInGroup("PlayerBullet"))
+        {
+            if (flipped)
+            {
+                if (((Bullet)area.GetParent()).MoveVector.y > 0)
+                {
+                    Kill();
+                }
+            }
 
-		}
-		else
-		{
-			invincible = true;
-			flipped = true;
-			sprite.Animation = "flipping";
-			AddToGroup("stompable");
-		}
-	}
+            OnHit(0);
+            area.GetParent().QueueFree();
+        }
+    }
+
+    public override void OnHit(int damage)
+    {
+        if (invincible)
+        {
+
+        }
+        else
+        {
+            invincible = true;
+            flipped = true;
+            sprite.Animation = "flipping";
+            AddToGroup("stompable");
+        }
+    }
 
 	private void OnHitboxEntered(Area2D area)
 	{

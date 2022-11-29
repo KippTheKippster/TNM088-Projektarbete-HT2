@@ -1,19 +1,47 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/Flipper.tscn" type="PackedScene" id=2]
 
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec4 flash_color : hint_color = vec4(1.0);
+uniform float flash_shift : hint_range(0.0, 1.0) = 0.0;
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	color.rgb = mix(color.rgb, flash_color.rgb, flash_shift);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shift = 0.0
+
 [node name="Level3" instance=ExtResource( 1 )]
 levelStipulationNumb = 1
 
-[node name="TileMap" parent="." index="0"]
-tile_data = PoolIntArray( -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 393207, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0 )
-
-[node name="StartElevator" parent="." index="1"]
-position = Vector2( -104, 48 )
-
-[node name="EndElevator" parent="." index="2"]
-position = Vector2( 216, -48 )
+[node name="CameraLimit" parent="." index="0"]
+position = Vector2( -240, -128 )
+scale = Vector2( 8.5, 4.5 )
 
 [node name="Flipper" parent="Enemies" index="0" instance=ExtResource( 2 )]
+material = SubResource( 4 )
 position = Vector2( 40, 24 )
+
+[node name="GeometryAutoTile" parent="GeometryTilemaps" index="2"]
+tile_data = PoolIntArray( -65525, 1, 0, -65524, 1, 1, -65523, 1, 1, -65522, 1, 1, -65521, 1, 2, 11, 1, 131072, 12, 1, 131073, 13, 1, 131073, 14, 1, 131073, 15, 1, 131074, 196607, 1, 0, 131072, 1, 1, 131073, 1, 1, 131074, 1, 1, 131075, 1, 1, 131076, 1, 1, 131077, 1, 1, 131078, 1, 2, 262143, 1, 65536, 196608, 1, 65537, 196609, 1, 65537, 196610, 1, 65537, 196611, 1, 65537, 196612, 1, 65537, 196613, 1, 65537, 196614, 1, 65538, 327679, 1, 131072, 262144, 1, 131073, 262145, 1, 131073, 262146, 1, 131073, 262147, 1, 131073, 262148, 1, 131073, 262149, 1, 131073, 262150, 1, 131074, 393207, 1, 0, 393208, 1, 1, 393209, 1, 1, 393210, 1, 1, 393211, 1, 1, 393212, 1, 2, 458743, 1, 65536, 458744, 1, 65537, 458745, 1, 65537, 458746, 1, 65537, 458747, 1, 65537, 458748, 1, 65538, 524279, 1, 131072, 524280, 1, 131073, 524281, 1, 131073, 524282, 1, 131073, 524283, 1, 131073, 524284, 1, 131074 )
+
+[node name="DeathBlock" parent="Obstacles" index="0"]
+position = Vector2( 136, 208 )
+scale = Vector2( 54, 10 )
+
+[node name="StartElevator" parent="." index="5"]
+position = Vector2( -104, 48 )
+
+[node name="EndElevator" parent="." index="6"]
+position = Vector2( 216, -48 )

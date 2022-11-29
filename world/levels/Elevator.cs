@@ -24,9 +24,13 @@ public class Elevator : AnimatedSprite
 
     [Signal] public delegate void SignalNextLevel();
 
+    CollisionShape2D collisionShape;
+
     public override void _Ready()
     {
         Playing = true;
+        collisionShape = GetNode<CollisionShape2D>("%CollisionShape2D");
+        collisionShape.Disabled = true;
 
         if (!EndElevator)
         {
@@ -96,6 +100,7 @@ public class Elevator : AnimatedSprite
             player.active = false;
             ZIndex = 6;
             Close();
+            player.model.Animation = "Idle";
 
             Timer timer = new Timer();
             AddChild(timer);
@@ -104,6 +109,21 @@ public class Elevator : AnimatedSprite
             timer.Connect("timeout", this, nameof(NextLevel));
             timer.Start();
         }
+    }
+
+    public void OpenEndElevator()
+    {
+        Open();
+        GetNode<Timer>("Timer").Start();
+        _on_Timer_timeout();
+        //collisionShape.Disabled = false;
+        collisionShape.SetDeferred("disabled", false);
+    }
+
+    private void _on_Timer_timeout()
+    {
+        Circle circle = (Circle)GD.Load<PackedScene>("res://effects/Circle.tscn").Instance();
+        AddChild(circle);
     }
 
     private void NextLevel()

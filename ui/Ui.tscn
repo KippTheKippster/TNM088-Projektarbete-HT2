@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ui/Dialogue.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/Ammo.cs" type="Script" id=3]
 [ext_resource path="res://ui/Ui.cs" type="Script" id=4]
+[ext_resource path="res://ui/Time.cs" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 1 )
+
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -148.0 ]
+}
 
 [node name="Container" type="Control" parent="."]
 margin_right = 1024.0
@@ -21,3 +29,21 @@ custom_fonts/font = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="Ammo" type="Label" parent="."]
+margin_left = 272.0
+margin_right = 381.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 4 )
+text = "3/3
+"
+align = 2
+script = ExtResource( 3 )
+
+[node name="Time" type="Label" parent="."]
+margin_left = 3.0
+margin_right = 112.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 4 )
+text = "0:00:00"
+script = ExtResource( 5 )

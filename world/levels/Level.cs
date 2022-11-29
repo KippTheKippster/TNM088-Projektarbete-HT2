@@ -14,7 +14,7 @@ public class ExportEnumAsFlagsAttribute : ExportAttribute
 */
 //[ExportEnumAsFlags(typeof(LevelWinStipulate))] readonly int levelWinStipulate;	//[ExportEnumAsFlags(typeof(LevelWinStipulate))] readonly int levelWinStipulate;
 
-public abstract class LevelStipulation : Node
+public class LevelStipulation : Node
 {
 	internal Level level;
 
@@ -62,8 +62,22 @@ public class KillAllStipulation : LevelStipulation
 
 public class HitButtonsStipulation : LevelStipulation
 {
-	public override void OnEnemyAdd()
-	{
+	ButtonListener buttonListener;
+
+
+	public override void _Ready()
+    {
+        base._Ready();
+		buttonListener = (ButtonListener)GD.Load<PackedScene>("res://listeners/ButtonListener.tscn").Instance();
+		AddChild(buttonListener);
+		buttonListener.id = "EndElevator";
+		buttonListener.Connect("SignalAllPressed", this, "OnAllPressed");
+	}
+
+	private void OnAllPressed()
+    {
+		GD.Print("AllPressed!");
+		level.Open();
 	}
 }
 
@@ -74,32 +88,43 @@ public class Level : Node2D
 	[Signal] public delegate void SignalEnemyAdd();
 	[Signal] public delegate void SignalEnemyDied();
 	[Signal] public delegate void SignalNextLevel();
+	[Signal] public delegate void SignalRestart();
+	[Signal] public delegate void SignalButtonPressed(string id);
+	[Signal] public delegate void SignalButtonAdd(string id);
 
 	public Elevator startElevator;
 	public Elevator endElevator;
 	public LevelStipulation levelStipulation;
 
-	[Export(PropertyHint.Enum, "None,Kill all enemies,Hit all buttons")] int levelStipulationNumb;
+	[Export(PropertyHint.Enum, "None,Kill all enemies,Hit all buttons,Custom")] int levelStipulationNumb;
 
-	public override void _Ready()
+	public void Ready()
 	{
 		startElevator = GetNode<Elevator>("%StartElevator");
 		endElevator = GetNode<Elevator>("%EndElevator");
 
-		GetStipulation();
+		SetStipulation();
 
 		Connect("SignalEnemyDied", levelStipulation, "OnEnemyDied");
 		Connect("SignalEnemyAdd", levelStipulation, "OnEnemyAdd");
 		endElevator.Connect("SignalNextLevel", this, nameof(NextLevel));
+
+		GD.Print("Level Ready");
+
+		Game.player.Visible = true;
 	}
+
+	private void OnEnemyAdd()
+    {
+    }
 
 	private void NextLevel()
 	{
 		EmitSignal(nameof(SignalNextLevel));
 	}
 
-	private void GetStipulation()
-	{
+	private void SetStipulation()
+    {
 		switch (levelStipulationNumb)
 		{
 			case 0:
@@ -117,6 +142,11 @@ public class Level : Node2D
 					levelStipulation = new HitButtonsStipulation();
 					break;
 				}
+			case 3:
+				{
+					levelStipulation = new LevelStipulation();
+					break;
+				}
 		}
 
 		AddChild(levelStipulation);
@@ -124,11 +154,6 @@ public class Level : Node2D
 
 	public void Open()
 	{
-		endElevator.Open();
-	}
-
-	void OnEnemyAdd()
-	{
-		GD.Print("SELFENEMYADD");
+		endElevator.OpenEndElevator();
 	}
 }

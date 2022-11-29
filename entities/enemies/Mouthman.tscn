@@ -1,19 +1,48 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/enemies/placeholder.png" type="Texture" id=2]
 [ext_resource path="res://entities/enemies/Mouthman.cs" type="Script" id=3]
+[ext_resource path="res://entities/enemies/FlashShader.gdshader" type="Shader" id=4]
+[ext_resource path="res://assets/textures/enemies/placeholder2.png" type="Texture" id=5]
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_shift = 0.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.0
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 9.0
+
 [node name="Mouthman" instance=ExtResource( 1 )]
+material = SubResource( 2 )
 script = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 3 )
 
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 1 )
+playing = true
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+visible = false
+
+[node name="WallHitbox" type="Area2D" parent="." index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallHitbox" index="0"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="WallHitbox" to="." method="OnWallHit"]

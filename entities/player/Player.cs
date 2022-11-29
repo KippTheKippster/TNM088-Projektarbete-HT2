@@ -5,7 +5,14 @@ public class Player : Entity
 {
 	FloorCheck floorCheck;
 	PlayerGun gun;
+	Gun chargeGun;
 	Timer jumpTimer;
+	Timer chargeTimer;
+	Timer reloadTimer;
+	Timer deathTimer;
+	AnimatedSprite chargeEffect;
+	public AnimatedSprite model;
+
 	Vector2 moveSpeed;
 	Vector2 targetMoveSpeed;
 	public Vector2 externalSpeed;
@@ -16,23 +23,37 @@ public class Player : Entity
 	[Export] readonly float groundDeceleration = 6f;
 	[Export] readonly float airDeceleration = 6f;
 	[Export] readonly float gunKnockback = 200f;
+	[Export] readonly float chargeKnockback = 350f;
 	[Export] readonly float jumpGravityScale = 0.3f;
 	[Export] readonly float holdDownTime = 0.2f;
-
+    [Export] public readonly int maxAmmo = 3;
+	[Export] public bool godMode = false;
 	float gravityScale = 1.0f;
 
 	int inputX;
 	int directionX = 1;
 	int directionY;
+	public int currentAmmo;
 
 	bool isJumping;
+	bool isCharged;
 	public bool active = true;
 
 	public override void _Ready()
 	{
 		floorCheck = GetNode<FloorCheck>("%FloorCheck");
 		gun = GetNode<PlayerGun>("%PlayerGun");
+		chargeGun = GetNode<Gun>("%ChargeGun");
 		jumpTimer = GetNode<Timer>("JumpTimer");
+		chargeTimer = GetNode<Timer>("%ChargeTimer");
+		reloadTimer = GetNode<Timer>("%ReloadTimer");
+		deathTimer = GetNode<Timer>("%DeathTimer");
+		chargeEffect = GetNode<AnimatedSprite>("%ChargeEffect");
+		model = GetNode<AnimatedSprite>("%Model");
+
+		floorCheck.Connect("SignalHitGround", this, "Reload");
+
+		currentAmmo = maxAmmo;
 		jumpTimer.WaitTime = holdDownTime;
 	}
 
@@ -42,7 +63,8 @@ public class Player : Entity
 			return;
 
 		ReadInput();
-		Jump();
+		Jump();	
+		Gun();
 		Move(delta);
 	}
 
@@ -61,11 +83,6 @@ public class Player : Entity
 			directionY = 1;
 		else
 			directionY = 0;
-
-		Gun();
-
-		if (Input.IsActionJustPressed("shoot"))
-			Shoot();
 	}
 
 	private void Move(float delta)
@@ -77,7 +94,12 @@ public class Player : Entity
 			directionX = inputX;
 			GlobalScale = new Vector2(directionX, 1);
 			GlobalRotation = 0;
+			model.Animation = "Run"; 
 		}
+		else
+        {
+			model.Animation = "Idle";	
+        }
 
 		if (IsOnFloor())
 		{
@@ -86,6 +108,7 @@ public class Player : Entity
 		else
 		{
 			weight = airDeceleration;
+			model.Animation = "InAir";
 		}
 
 		targetMoveSpeed.x = inputX * speedX;
@@ -132,10 +155,46 @@ public class Player : Entity
 		isJumping = false;
 	}
 
+	private void StartChargin()
+    {
+		chargeTimer.Start();
+		chargeEffect.Visible = true;
+		chargeEffect.Animation = "Half";
+	}
+
 	private void Gun()
 	{
 		gun.Rotation = (Mathf.Pi / 2f) * directionY;
+
+		if (Input.IsActionJustPressed("shoot") && currentAmmo > 0)
+        {
+			Shoot();
+			StartChargin();
+
+			if (currentAmmo >= 0 && floorCheck.IsOnFloor)
+				reloadTimer.Start();
+		}
+		else if (Input.IsActionJustReleased("shoot"))
+        {
+			chargeTimer.Stop();
+
+			if (isCharged)
+            {
+				GD.Print("Charge shot");
+				ChargeShot();
+            }
+
+			isCharged = false;
+			chargeEffect.Visible = false;
+		}
 	}
+
+	private void OnChargeTimerTimeout()
+    {
+		isCharged = true;
+		chargeEffect.Animation = "Full";
+		GD.Print("Charge Shot Ready");
+    }
 
 	private void Shoot()
 	{
@@ -146,8 +205,47 @@ public class Player : Entity
 		else
 			shootVector = new Vector2(directionX, 0);
 
-		externalSpeed = -shootVector * gunKnockback;
+		if (shootVector.y > 0)
+			externalSpeed.y = -gunKnockback;
 
 		gun.Shoot(GlobalPosition, shootVector);
+		currentAmmo--;
+	}
+
+	private void ChargeShot()
+    {
+		Vector2 shootVector;
+
+		if (directionY != 0)
+			shootVector = new Vector2(0, directionY);
+		else
+			shootVector = new Vector2(directionX, 0);
+
+		externalSpeed = -shootVector * chargeKnockback;
+
+		chargeGun.Shoot(GlobalPosition, shootVector);
+		currentAmmo = 0;
+		if (floorCheck.IsOnFloor)
+			reloadTimer.Start();
+	}
+
+	private void Reload()
+    {
+		currentAmmo = maxAmmo;
+		reloadTimer.Stop();
+		if (Input.IsActionPressed("shoot") && !isCharged)
+			StartChargin();
+	}
+
+	public void Kill()
+    {
+		active = false;
+		Visible = false;
+		deathTimer.Start();
+	}
+
+	private void _on_DeathTimer_timeout()
+	{
+		Game.level.EmitSignal("SignalRestart");
 	}
 }

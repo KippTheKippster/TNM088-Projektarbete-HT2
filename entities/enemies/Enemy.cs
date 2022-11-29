@@ -5,14 +5,17 @@ using System.Security.Cryptography.X509Certificates;
 public class Enemy : Entity
 {
 	internal AnimatedSprite sprite;
+	internal Area2D hitbox;
+	internal Timer flashTimer;
 
 	[Signal] public delegate void SignalOnHitboxEntered(Area2D area);
 
+	[Export] public float moveSpeed = -50;
+	
+	[Export] public int HP = 2;
+
 	[Export] string[] signals = { "SignalEnemyDied" };
 
-	public float moveSpeed = -50;
-	
-	public int HP = 1;
 
 	public bool invincible;
 
@@ -21,6 +24,8 @@ public class Enemy : Entity
 		GD.Print("ADDING!");
 		Game.level.EmitSignal("SignalEnemyAdd");
 		sprite = GetNode<AnimatedSprite>("%Sprite");
+		hitbox = GetNode<Area2D>("%Hitbox");
+		flashTimer = GetNode<Timer>("FlashTimer");
 	}
 	
 	public override void _PhysicsProcess(float delta)
@@ -44,14 +49,27 @@ public class Enemy : Entity
 		MoveAndSlide(velocity, Vector2.Up);
 	}
 
-	public virtual void OnHit() 
+	public virtual void OnHit(int damage) 
 	{
-		HP--;
+		HP -= damage;
 		if (HP <= 0) 
 		{ 
 			Kill();
 		}
+		Flash();
 	}
+
+	public void Flash()
+    {
+		(Material as ShaderMaterial).SetShaderParam("flash_shift", 1.0);
+		flashTimer.Start();
+	}
+
+	private void OnFlashTimeout()
+    {
+		(Material as ShaderMaterial).SetShaderParam("flash_shift", 0.0);
+	}
+
 
 	public virtual void Kill() 
 	{
@@ -60,12 +78,13 @@ public class Enemy : Entity
 		Game.level.EmitSignal("SignalEnemyDied");
 	}
 
-	private void _on_Hitbox_area_entered(Area2D area)
+	public virtual void _on_Hitbox_area_entered(Area2D area)
 	{
 		EmitSignal(nameof(SignalOnHitboxEntered), area);
 		if (area.GetParent().IsInGroup("PlayerBullet")) 
 		{
-			OnHit();
+			Bullet bullet = ((Bullet)area.GetParent());
+			OnHit(bullet.Damage);
 			area.GetParent().QueueFree();
 		}
 	}
