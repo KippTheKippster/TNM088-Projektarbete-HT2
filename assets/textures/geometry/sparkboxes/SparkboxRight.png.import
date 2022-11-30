@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Floor_ceeling_and_supports.png-40acfd0e67fb48dbb6a411960991251b.stex"
+path="res://.import/SparkboxRight.png-8193c47410bf76bfe453e0d82261c909.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/tilemaps/Floor_ceeling_and_supports.png"
-dest_files=[ "res://.import/Floor_ceeling_and_supports.png-40acfd0e67fb48dbb6a411960991251b.stex" ]
+source_file="res://assets/textures/geometry/sparkboxes/SparkboxRight.png"
+dest_files=[ "res://.import/SparkboxRight.png-8193c47410bf76bfe453e0d82261c909.stex" ]
 
 [params]
 

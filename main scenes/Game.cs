@@ -8,7 +8,7 @@ public class Game : Node2D
 	public static Camera2D camera;
 	public static Level level = null;
 	private readonly string levelPath = "res://world/levels/";
-	[Export(PropertyHint.Range, "0,100,")] public int levelNumber = 1;
+	[Export(PropertyHint.Range, "1,1000,")] public int levelNumber = 1;
 
 	public override void _Ready()
 	{

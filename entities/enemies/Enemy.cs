@@ -26,6 +26,7 @@ public class Enemy : Entity
 		sprite = GetNode<AnimatedSprite>("%Sprite");
 		hitbox = GetNode<Area2D>("%Hitbox");
 		flashTimer = GetNode<Timer>("FlashTimer");
+		Material = (Material)Material.Duplicate();
 	}
 	
 	public override void _PhysicsProcess(float delta)
@@ -85,7 +86,7 @@ public class Enemy : Entity
 		{
 			Bullet bullet = ((Bullet)area.GetParent());
 			OnHit(bullet.Damage);
-			area.GetParent().QueueFree();
+			bullet.Die();
 		}
 	}
 }

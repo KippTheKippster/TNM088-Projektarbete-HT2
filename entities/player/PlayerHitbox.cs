@@ -21,7 +21,14 @@ public class PlayerHitbox : Area2D
                 }
             }
 
-            Game.player.Kill();
+            PlayerDeath deathType = PlayerDeath.Default;
+
+            if (area.IsInGroup("electricity"))
+            {
+                deathType = PlayerDeath.Electricity;
+            }
+
+            Game.player.Kill(deathType);
         }
     }
 }

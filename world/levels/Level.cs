@@ -20,7 +20,7 @@ public class LevelStipulation : Node
 
 	public override void _Ready()
     {
-		level = (Level)GetParent();
+		level = GetParent<Level>();
     }
 
 	public virtual void OnEnemyDied() {}
@@ -112,6 +112,9 @@ public class Level : Node2D
 		GD.Print("Level Ready");
 
 		Game.player.Visible = true;
+		Game.player.externalSpeed = Vector2.Zero;
+		Game.player.currentAmmo = Game.player.maxAmmo;
+		Game.player.StopCharge();
 	}
 
 	private void OnEnemyAdd()

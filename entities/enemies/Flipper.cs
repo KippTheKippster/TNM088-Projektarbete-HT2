@@ -23,16 +23,17 @@ public class Flipper : Enemy
         EmitSignal(nameof(SignalOnHitboxEntered), area);
         if (area.GetParent().IsInGroup("PlayerBullet"))
         {
+            Bullet bullet = area.GetParent<Bullet>();
             if (flipped)
             {
-                if (((Bullet)area.GetParent()).MoveVector.y > 0)
+                if (bullet.MoveVector.y > 0)
                 {
                     Kill();
                 }
             }
 
             OnHit(0);
-            area.GetParent().QueueFree();
+            bullet.Die();
         }
     }
 

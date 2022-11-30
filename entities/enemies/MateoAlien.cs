@@ -17,11 +17,18 @@ public class MateoAlien : Enemy
             _flipped = value;
             GetNode<AnimatedSprite>("%Sprite").FlipH = value;
 
+            GD.Print("Mateo alien flipped is: " + value);
+
             if (value)
                 moveSpeed = Mathf.Abs(moveSpeed) * -1;
             else
                 moveSpeed = Mathf.Abs(moveSpeed);
         }
+    }
+
+    public override void _Ready()
+    {
+        Flipped = Flipped;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -42,6 +49,3 @@ public class MateoAlien : Enemy
 		Flipped = false;
 	}
 }
-
-
-

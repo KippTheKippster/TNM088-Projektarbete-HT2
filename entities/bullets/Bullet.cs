@@ -3,6 +3,7 @@ using System;
 
 public class Bullet : Node2D
 {
+	public AnimatedSprite Sprite { get; set; }
 	private float _angle = 0;
 	public float Angle
 	{
@@ -39,8 +40,42 @@ public class Bullet : Node2D
 		}
 	}
 
-	public override void _Process(float delta)
+    public override void _Ready()
+    {
+		Sprite = GetNode<AnimatedSprite>("Sprite");
+		Sprite.Animation = "default";
+	}
+
+    public override void _Process(float delta)
 	{
 		Position += _moveVector * Speed * delta;
 	}
+
+
+	private void _on_Sprite_animation_finished()
+    {
+		if (Sprite.Animation == "default")
+			Sprite.Animation = "idle";
+		else if (Sprite.Animation == "death")
+			QueueFree();
+    }
+
+	public void Die()
+    {
+		Sprite.Animation = "death";
+		Sprite.FlipH = true;
+		Sprite.FlipV = true;
+		Speed = 0;
+	}
+
+	private void _on_Area2D_body_entered(Node body)
+    {
+		GD.Print("Bruh");
+		Die();
+    }
+
+	private void _on_DeathTimer_timeout()
+    {
+		Die();
+    }
 }
