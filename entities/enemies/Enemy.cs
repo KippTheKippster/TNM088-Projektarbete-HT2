@@ -14,23 +14,28 @@ public class Enemy : Entity
 	
 	[Export] public int HP = 2;
 
-	[Export] string[] signals = { "SignalEnemyDied" };
-
-
 	public bool invincible;
+	public bool active = true;
+	[Export] public bool activateOnScreen = false;
+
+	[Export] public string unlockId = "";
 
 	public override void _Ready()
 	{
-		GD.Print("ADDING!");
-		Game.level.EmitSignal("SignalEnemyAdd");
 		sprite = GetNode<AnimatedSprite>("%Sprite");
-		hitbox = GetNode<Area2D>("%Hitbox");
+		hitbox = GetNode<Area2D>("Hitbox");
 		flashTimer = GetNode<Timer>("FlashTimer");
 		Material = (Material)Material.Duplicate();
+		
+		if (activateOnScreen)
+			active = false;
 	}
 	
 	public override void _PhysicsProcess(float delta)
 	{
+		if (!active)
+			return;
+
 		Move(delta);
 	}
 	
@@ -76,7 +81,7 @@ public class Enemy : Entity
 	{
 		QueueFree(); 
 		GD.Print("Enemy Died.");
-		Game.level.EmitSignal("SignalEnemyDied");
+		Game.level.EmitSignal("SignalEnemyDied", unlockId);
 	}
 
 	public virtual void _on_Hitbox_area_entered(Area2D area)
@@ -88,6 +93,18 @@ public class Enemy : Entity
 			OnHit(bullet.Damage);
 			bullet.Die();
 		}
+	}
+
+	private void _on_VisibilityNotifier2D_screen_entered()
+    {
+		active = true;
+		GD.Print("Is on screen!");
+	}
+
+	private void _on_DelayAdd_timeout()
+    {
+		GD.Print("ADDING!");
+		Game.level.EmitSignal("SignalEnemyAdd", unlockId);
 	}
 }
 

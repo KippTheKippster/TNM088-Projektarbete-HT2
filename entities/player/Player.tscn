@@ -262,7 +262,6 @@ visible = false
 position = Vector2( 7, -1 )
 frames = SubResource( 8 )
 animation = "Full"
-frame = 1
 playing = true
 
 [node name="ChargeGun" parent="Model/Guns" instance=ExtResource( 1 )]
@@ -275,7 +274,7 @@ bulletScene = ExtResource( 6 )
 
 [node name="ChargeTimer" type="Timer" parent="Model/Guns"]
 unique_name_in_owner = true
-wait_time = 0.75
+wait_time = 0.35
 one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="Model/Guns"]

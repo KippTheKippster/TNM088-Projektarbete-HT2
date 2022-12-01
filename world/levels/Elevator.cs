@@ -59,7 +59,7 @@ public class Elevator : AnimatedSprite
     private void Start()
     {
         GD.Print("Starting");
-        Open();
+        OpenElevator();
     }
 
     public override void _Process(float delta)
@@ -70,11 +70,11 @@ public class Elevator : AnimatedSprite
         }
     }
 
-    public void Open()
+    public void OpenElevator()
     {
         Animation = "opening";
     }
-    public void Close()
+    public void CloseElevator()
     {
         Animation = "closing";
     }
@@ -106,7 +106,7 @@ public class Elevator : AnimatedSprite
             player.GlobalPosition = GlobalPosition + 16 * Vector2.Down;
             player.active = false;
             ZIndex = 6;
-            Close();
+            CloseElevator();
             player.model.Animation = "Idle";
 
             Timer timer = new Timer();
@@ -118,9 +118,9 @@ public class Elevator : AnimatedSprite
         }
     }
 
-    public void OpenEndElevator()
+    public void Open()
     {
-        Open();
+        OpenElevator();
         GetNode<Timer>("Timer").Start();
         _on_Timer_timeout();
         //collisionShape.Disabled = false;

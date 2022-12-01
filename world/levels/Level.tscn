@@ -1797,11 +1797,6 @@ unique_name_in_owner = true
 position = Vector2( 64, 0 )
 EndElevator = true
 
-[node name="Enemies" type="Node2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="BackgroundTilemaps" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -1852,7 +1847,6 @@ z_index = -1
 tile_set = SubResource( 39 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 78, 2, 0, 79, 2, 1, 80, 2, 1, 81, 2, 1, 82, 2, 0, 65614, 2, 65536, 65621, 2, 0, 131150, 2, 65538, 196686, 2, 65538, 262222, 2, 65536, 327758, 2, 0, 327759, 2, 131073, 327760, 2, 1, 327761, 2, 1, 327762, 2, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1862,6 +1856,11 @@ z_index = -1
 tile_set = SubResource( 70 )
 cell_size = Vector2( 16, 16 )
 format = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Enemies" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }

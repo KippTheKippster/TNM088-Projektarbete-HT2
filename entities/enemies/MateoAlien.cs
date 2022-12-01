@@ -5,6 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 [Tool]
 public class MateoAlien : Enemy
 {
+    int floorRightCounter;
+    int floorLeftCounter;
+
     private bool _flipped;
     [Export] public bool Flipped
     {
@@ -26,8 +29,11 @@ public class MateoAlien : Enemy
         }
     }
 
+    [Export] public bool stayOnLedge = true;
+
     public override void _Ready()
     {
+        base._Ready();
         Flipped = Flipped;
     }
 
@@ -42,10 +48,39 @@ public class MateoAlien : Enemy
 	private void OnRightCheckEntered(Area2D area)
 	{
         Flipped = true;
-	}
+        GD.Print("MateoAlien right!");
+
+    }
     
     private void OnLeftCheckEntered(Area2D area)
 	{
 		Flipped = false;
+        GD.Print("MateoAlien left!");
 	}
+
+    private void OnFloorRightCheck(Area2D area)
+    {
+        floorRightCounter++;
+    }
+
+    private void OnFloorLeftCheck(Area2D area)
+    {
+        floorLeftCounter++;
+    }
+
+    private void FloorRightExit(Area2D area)
+    {
+        floorRightCounter--;
+
+        if (floorRightCounter <= 0 && stayOnLedge)
+            Flipped = true;
+    }
+
+    private void FloorLeftExit(Area2D area)
+    {
+        floorLeftCounter--;
+
+        if (floorLeftCounter <= 0 && stayOnLedge)
+            Flipped = false;
+    }
 }

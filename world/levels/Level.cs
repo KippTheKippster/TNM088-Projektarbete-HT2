@@ -85,8 +85,8 @@ public class HitButtonsStipulation : LevelStipulation
 public class Level : Node2D
 {
 	[Signal] public delegate void SignalOpen();
-	[Signal] public delegate void SignalEnemyAdd();
-	[Signal] public delegate void SignalEnemyDied();
+	[Signal] public delegate void SignalEnemyAdd(string id);
+	[Signal] public delegate void SignalEnemyDied(string id);
 	[Signal] public delegate void SignalNextLevel();
 	[Signal] public delegate void SignalRestart();
 	[Signal] public delegate void SignalButtonPressed(string id);
@@ -157,6 +157,6 @@ public class Level : Node2D
 
 	public void Open()
 	{
-		endElevator.OpenEndElevator();
+		endElevator.Open();
 	}
 }
