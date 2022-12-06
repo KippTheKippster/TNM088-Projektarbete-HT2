@@ -68,7 +68,7 @@ stayOnLedge = true
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 6 )
 animation = "walk"
-frame = 1
+frame = 2
 playing = true
 
 [node name="RightCheck" type="Area2D" parent="." index="3"]
