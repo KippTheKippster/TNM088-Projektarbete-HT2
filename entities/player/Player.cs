@@ -4,7 +4,7 @@ using System;
 public class Player : Entity
 {
 	FloorCheck floorCheck;
-	PlayerGun gun;
+	public PlayerGun gun;
 	Gun chargeGun;
 	Timer jumpTimer;
 	Timer chargeTimer;
@@ -13,8 +13,8 @@ public class Player : Entity
 	AnimatedSprite chargeEffect;
 	public AnimatedSprite model;
 
-	Vector2 moveSpeed;
-	Vector2 targetMoveSpeed;
+	public Vector2 moveSpeed;
+	public Vector2 targetMoveSpeed;
 	public Vector2 externalSpeed;
 
 	[Export] readonly float speedX = 100f;
@@ -94,11 +94,13 @@ public class Player : Entity
 			directionX = inputX;
 			GlobalScale = new Vector2(directionX, 1);
 			GlobalRotation = 0;
-			model.Animation = "Run"; 
+			if (IsOnFloor())
+				model.Animation = "Run"; 
 		}
 		else
-        {
-			model.Animation = "Idle";	
+		{
+			if (IsOnFloor())
+				model.Animation = "Idle";	
         }
 
 		if (IsOnFloor())
@@ -108,7 +110,8 @@ public class Player : Entity
 		else
 		{
 			weight = airDeceleration;
-			model.Animation = "InAir";
+			if (model.Animation != "Pushback")
+				model.Animation = "InAir";
 		}
 
 		targetMoveSpeed.x = inputX * speedX;
@@ -176,17 +179,21 @@ public class Player : Entity
 		}
 		else if (Input.IsActionJustReleased("shoot"))
         {
-			chargeTimer.Stop();
-
 			if (isCharged)
             {
 				GD.Print("Charge shot");
 				ChargeShot();
             }
 
-			isCharged = false;
-			chargeEffect.Visible = false;
+			StopCharge();
 		}
+	}
+
+	public void StopCharge()
+	{
+		chargeTimer.Stop();
+		isCharged = false;
+		chargeEffect.Visible = false;
 	}
 
 	private void OnChargeTimerTimeout()
@@ -224,9 +231,13 @@ public class Player : Entity
 		externalSpeed = -shootVector * chargeKnockback;
 
 		chargeGun.Shoot(GlobalPosition, shootVector);
+		model.Animation = "Pushback";
 		currentAmmo = 0;
+
 		if (floorCheck.IsOnFloor)
 			reloadTimer.Start();
+		else
+			model.Animation = "Pushback";
 	}
 
 	private void Reload()
@@ -237,15 +248,45 @@ public class Player : Entity
 			StartChargin();
 	}
 
-	public void Kill()
+	public void Kill(PlayerDeath death = PlayerDeath.Default)
     {
 		active = false;
-		Visible = false;
-		deathTimer.Start();
+		//Visible = false;
+		gun.Visible = false;
+
+		switch (death)
+		{
+			case PlayerDeath.Default:
+				{
+					model.Animation = "DeathDefault";
+					break;
+				}
+			case PlayerDeath.Electricity:
+                {
+					model.Animation = "DeathElectrified";
+					break;
+                }
+		}
 	}
+
+	private void _on_Model_animation_finished()
+    {
+		if (model.Animation.Contains("Death"))
+        {
+			deathTimer.Start();
+			GD.Print("Finnished");
+
+		}
+    }
 
 	private void _on_DeathTimer_timeout()
 	{
 		Game.level.EmitSignal("SignalRestart");
 	}
+}
+
+public enum PlayerDeath
+{
+	Default,
+	Electricity
 }

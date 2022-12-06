@@ -118,7 +118,6 @@ visible = false
 material = SubResource( 14 )
 position = Vector2( 0, 1.01328e-06 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="Hitbox" parent="." index="2"]

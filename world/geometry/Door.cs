@@ -27,8 +27,6 @@ public class Door : AnimatedSprite
         }
     }
 
-    [Export] string ID = "Door1";
-
     public override void _Ready()
     {
         //GetNode<ButtonListener>("ButtonListener").id = ID;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/enemies/MateoAlienWalk.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://entities/enemies/MateoAlien.cs" type="Script" id=4]
 [ext_resource path="res://entities/enemies/FlashShader.gdshader" type="Shader" id=5]
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=15]
 resource_local_to_scene = true
 shader = ExtResource( 5 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
@@ -45,42 +45,66 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 1, 8 )
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 1, 7 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 1, 7 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 0.5, 0.5 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 0.5, 0.5 )
 
 [node name="MateoAlien" instance=ExtResource( 1 )]
-material = SubResource( 10 )
+material = SubResource( 15 )
 script = ExtResource( 4 )
 moveSpeed = 50.0
+unlockId = null
 Flipped = false
-
-[node name="CollisionShape2D" parent="." index="0"]
-visible = false
+stayOnLedge = true
 
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 6 )
 animation = "walk"
-frame = 2
 playing = true
 
-[node name="Hitbox" parent="." index="2"]
-visible = false
-
 [node name="RightCheck" type="Area2D" parent="." index="3"]
-visible = false
 collision_layer = 0
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightCheck" index="0"]
 position = Vector2( 8, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 11 )
 
 [node name="LeftCheck" type="Area2D" parent="." index="4"]
 collision_layer = 0
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftCheck" index="0"]
-visible = false
 position = Vector2( -8, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 12 )
+
+[node name="FloorRightCheck" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorRightCheck" index="0"]
+position = Vector2( 8.5, 8.5 )
+shape = SubResource( 13 )
+
+[node name="FloorLeftCheck" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorLeftCheck" index="0"]
+position = Vector2( -8.5, 8.5 )
+shape = SubResource( 14 )
 
 [connection signal="body_entered" from="RightCheck" to="." method="OnRightCheckEntered"]
 [connection signal="body_entered" from="LeftCheck" to="." method="OnLeftCheckEntered"]
+[connection signal="body_entered" from="FloorRightCheck" to="." method="OnFloorRightCheck"]
+[connection signal="body_exited" from="FloorRightCheck" to="." method="FloorRightExit"]
+[connection signal="body_entered" from="FloorLeftCheck" to="." method="OnFloorLeftCheck"]
+[connection signal="body_exited" from="FloorLeftCheck" to="." method="FloorLeftExit"]

@@ -19,9 +19,15 @@ public class LevelStipulation : Node
 	internal Level level;
 
 	public override void _Ready()
+<<<<<<< HEAD
 	{
 		level = (Level)GetParent();
 	}
+=======
+    {
+		level = GetParent<Level>();
+    }
+>>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
 
 	public virtual void OnEnemyDied() {}
 	public virtual void OnEnemyAdd() {}
@@ -85,8 +91,8 @@ public class HitButtonsStipulation : LevelStipulation
 public class Level : Node2D
 {
 	[Signal] public delegate void SignalOpen();
-	[Signal] public delegate void SignalEnemyAdd();
-	[Signal] public delegate void SignalEnemyDied();
+	[Signal] public delegate void SignalEnemyAdd(string id);
+	[Signal] public delegate void SignalEnemyDied(string id);
 	[Signal] public delegate void SignalNextLevel();
 	[Signal] public delegate void SignalRestart();
 	[Signal] public delegate void SignalButtonPressed(string id);
@@ -112,6 +118,9 @@ public class Level : Node2D
 		GD.Print("Level Ready");
 
 		Game.player.Visible = true;
+		Game.player.externalSpeed = Vector2.Zero;
+		Game.player.currentAmmo = Game.player.maxAmmo;
+		Game.player.StopCharge();
 	}
 
 	private void OnEnemyAdd()
@@ -154,6 +163,6 @@ public class Level : Node2D
 
 	public void Open()
 	{
-		endElevator.OpenEndElevator();
+		endElevator.Open();
 	}
 }

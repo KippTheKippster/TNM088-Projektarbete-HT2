@@ -1,0 +1,94 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/textures/enemies/Turret.png" type="Texture" id=1]
+[ext_resource path="res://entities/enemies/Turret.cs" type="Script" id=2]
+[ext_resource path="res://entities/guns/Gun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/bullets/TurretBullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/textures/enemies/TurretCharge.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 14.0
+} ]
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 10, 0, 10, 10 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="Turret" type="Node2D"]
+scale = Vector2( -1, 1 )
+script = ExtResource( 2 )
+
+[node name="Gun" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( -12, -1 )
+scale = Vector2( 0.128738, 0.278518 )
+Speed = 160.0
+RotateSprite = false
+bulletScene = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+playing = true
+
+[node name="Charge" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -12, -1 )
+frames = SubResource( 8 )
+frame = 1
+playing = true
+
+[node name="StartChargeTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.8
+autostart = true
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="StartChargeTimer" to="." method="_on_StartChargeTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShooTimer_timeout"]

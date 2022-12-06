@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public class KillListener : Node
+public class KillListener : Listener
 {
-    [Signal] public delegate void SignalAllPressed();
-
     public override void _Ready()   
     {
-        
+        base._Ready();
+        Game.level.Connect("SignalEnemyAdd", this, nameof(OnAdd));
+        Game.level.Connect("SignalEnemyDied", this, nameof(OnActivate));
     }
 }
