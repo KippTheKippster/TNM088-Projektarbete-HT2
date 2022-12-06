@@ -280,6 +280,7 @@ public class Player : Entity
             case PlayerDeath.Electricity:
                 {
                     model.Animation = "DeathElectrified";
+					Game.audio.PlaySound("electrocuted.wav");
                     break;
                 }
         }
