@@ -63,6 +63,7 @@ public class Enemy : Entity
 			Kill();
 		}
 		Flash();
+		Game.audio.PlaySound("hitenemy.wav");
 	}
 
 	public void Flash()
