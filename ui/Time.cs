@@ -8,13 +8,13 @@ public class Time : Label
     int seconds = 0;
     int minutes = 0;
 
-    public override void _Ready()
-    {
-        
-    }
+    public bool active = true;
 
     public override void _Process(float delta)
     {
+        if (!active)
+            return;
+
         milliSeconds +=  delta * 100;
         iMilliSeconds = Mathf.RoundToInt(milliSeconds);
         if (iMilliSeconds % 100 == 0 && iMilliSeconds > 0)
