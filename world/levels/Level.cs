@@ -19,15 +19,9 @@ public class LevelStipulation : Node
 	internal Level level;
 
 	public override void _Ready()
-<<<<<<< HEAD
-	{
-		level = (Level)GetParent();
-	}
-=======
     {
 		level = GetParent<Level>();
     }
->>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
 
 	public virtual void OnEnemyDied() {}
 	public virtual void OnEnemyAdd() {}

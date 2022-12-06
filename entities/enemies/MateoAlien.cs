@@ -5,26 +5,6 @@ using System.Security.Cryptography.X509Certificates;
 [Tool]
 public class MateoAlien : Enemy
 {
-<<<<<<< HEAD
-	private bool _flipped;
-	[Export] public bool Flipped
-	{
-		get
-		{
-			return _flipped;
-		}
-		set
-		{
-			_flipped = value;
-			GetNode<AnimatedSprite>("%Sprite").FlipH = value;
-
-			if (value)
-				moveSpeed = Mathf.Abs(moveSpeed) * -1;
-			else
-				moveSpeed = Mathf.Abs(moveSpeed);
-		}
-	}
-=======
     int floorRightCounter;
     int floorLeftCounter;
 
@@ -48,7 +28,6 @@ public class MateoAlien : Enemy
                 moveSpeed = Mathf.Abs(moveSpeed);
         }
     }
->>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
 
     [Export] public bool stayOnLedge = true;
 
@@ -68,19 +47,12 @@ public class MateoAlien : Enemy
 	
 	private void OnRightCheckEntered(Area2D area)
 	{
-<<<<<<< HEAD
-		Flipped = true;
-	}
-	
-	private void OnLeftCheckEntered(Area2D area)
-=======
         Flipped = true;
         GD.Print("MateoAlien right!");
 
     }
     
     private void OnLeftCheckEntered(Area2D area)
->>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
 	{
 		Flipped = false;
         GD.Print("MateoAlien left!");

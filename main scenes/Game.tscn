@@ -26,11 +26,7 @@ shader_param/offset = Vector2( 0, 0 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 5 )
-<<<<<<< HEAD
-levelNumber = 5
-=======
 levelNumber = 203
->>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -128

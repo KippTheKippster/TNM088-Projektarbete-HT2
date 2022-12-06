@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=22 format=2]
-=======
-[gd_scene load_steps=59 format=2]
->>>>>>> 0f6657e36398a6ef28d38903caec7f3a56124152
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://entities/guns/PlayerGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
@@ -147,10 +143,6 @@ region = Rect2( 288, 0, 16, 16 )
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 18, 18 )
-
 [sub_resource type="AtlasTexture" id=47]
 atlas = ExtResource( 13 )
 region = Rect2( 112, 0, 16, 16 )
@@ -180,7 +172,7 @@ animations = [ {
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "InAir",
 "speed": 5.0
