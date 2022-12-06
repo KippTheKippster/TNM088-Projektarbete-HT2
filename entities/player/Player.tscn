@@ -1,16 +1,20 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://entities/guns/PlayerGun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://entities/player/FloorCheck.cs" type="Script" id=3]
 [ext_resource path="res://entities/player/StompCheck.cs" type="Script" id=4]
-[ext_resource path="res://assets/textures/player/player.png" type="Texture" id=5]
+[ext_resource path="res://assets/textures/player/PlayerJump.png" type="Texture" id=5]
 [ext_resource path="res://entities/bullets/ChargeBullet.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/player/PlayerHitbox.cs" type="Script" id=7]
-[ext_resource path="res://assets/textures/player/MainPlayerWalk.png" type="Texture" id=10]
+[ext_resource path="res://assets/textures/player/PlayerIdle.png" type="Texture" id=8]
+[ext_resource path="res://entities/player/Model.cs" type="Script" id=9]
+[ext_resource path="res://assets/textures/player/PlayerRun.png" type="Texture" id=10]
 [ext_resource path="res://assets/textures/player/finished/Sprite-death_elec_animation-finished.png" type="Texture" id=11]
 [ext_resource path="res://assets/textures/player/finished/PlayerDefaultDeath.png" type="Texture" id=12]
 [ext_resource path="res://assets/textures/player/finished/Sprite-main_gun_redesign_knockback_flyin_animation-finished.png" type="Texture" id=13]
+[ext_resource path="res://assets/textures/effects/FullChargeEffect.png" type="Texture" id=14]
+[ext_resource path="res://assets/textures/effects/HalfChargeEffect.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 8 )
@@ -139,21 +143,165 @@ region = Rect2( 272, 0, 16, 16 )
 atlas = ExtResource( 11 )
 region = Rect2( 288, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 8 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 8 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 8 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 8 )
+region = Rect2( 128, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 8 )
+region = Rect2( 144, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 8 )
+region = Rect2( 160, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 8 )
+region = Rect2( 176, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 8 )
+region = Rect2( 208, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 8 )
+region = Rect2( 224, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 8 )
+region = Rect2( 240, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 8 )
+region = Rect2( 256, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 8 )
+region = Rect2( 272, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 8 )
+region = Rect2( 304, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 8 )
+region = Rect2( 320, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=69]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 5 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=73]
+atlas = ExtResource( 5 )
+region = Rect2( 144, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=75]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 5 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=80]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=47]
+[sub_resource type="AtlasTexture" id=90]
 atlas = ExtResource( 13 )
 region = Rect2( 112, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id=91]
+atlas = ExtResource( 13 )
+region = Rect2( 16, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=92]
+atlas = ExtResource( 13 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=93]
+atlas = ExtResource( 13 )
+region = Rect2( 112, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=82]
 atlas = ExtResource( 10 )
-region = Rect2( 18, 0, 18, 18 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=83]
+atlas = ExtResource( 10 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=84]
+atlas = ExtResource( 10 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=85]
+atlas = ExtResource( 10 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
@@ -167,54 +315,78 @@ animations = [ {
 "name": "DeathElectrified",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 10 ) ],
+"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ) ],
 "loop": true,
 "name": "Idle",
-"speed": 5.0
+"speed": 20.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ) ],
 "loop": true,
 "name": "InAir",
-"speed": 5.0
+"speed": 10.0
 }, {
-"frames": [ SubResource( 47 ) ],
+"frames": [ SubResource( 75 ) ],
+"loop": true,
+"name": "InAirStart",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 80 ) ],
+"loop": true,
+"name": "JumpStart",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 90 ) ],
 "loop": true,
 "name": "Pushback",
-"speed": 5.0
+"speed": 0.1
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 91 ), SubResource( 92 ), SubResource( 93 ) ],
+"loop": false,
+"name": "PushbackStart",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ) ],
 "loop": true,
 "name": "Run",
-"speed": 7.0
+"speed": 12.0
 } ]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=86]
+atlas = ExtResource( 14 )
 region = Rect2( 0, 0, 12, 12 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=87]
+atlas = ExtResource( 14 )
 region = Rect2( 12, 0, 12, 12 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=88]
+atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=89]
+atlas = ExtResource( 15 )
 region = Rect2( 8, 0, 8, 8 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 86 ), SubResource( 87 ) ],
 "loop": true,
 "name": "Full",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 88 ), SubResource( 89 ) ],
 "loop": true,
 "name": "Half",
 "speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 2 )
+extents = Vector2( 3, 2 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4, 5.5 )
@@ -238,14 +410,16 @@ shape = SubResource( 1 )
 [node name="Model" type="AnimatedSprite" parent="."]
 unique_name_in_owner = true
 frames = SubResource( 9 )
-animation = "Pushback"
+animation = "PushbackStart"
+frame = 2
 playing = true
+script = ExtResource( 9 )
 
 [node name="Guns" type="Node2D" parent="Model"]
 
 [node name="PlayerGun" parent="Model/Guns" instance=ExtResource( 1 )]
 unique_name_in_owner = true
-position = Vector2( 1, 0 )
+position = Vector2( 1, -1 )
 
 [node name="ChargeEffect" type="AnimatedSprite" parent="Model/Guns/PlayerGun"]
 unique_name_in_owner = true
@@ -274,7 +448,6 @@ wait_time = 0.5
 
 [node name="FloorCheck" type="Area2D" parent="." groups=["FloorCheck"]]
 unique_name_in_owner = true
-visible = false
 position = Vector2( 0, 32 )
 collision_layer = 0
 script = ExtResource( 3 )
@@ -298,7 +471,7 @@ jumpStrength = 160.0
 holdDownStrength = 260.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompCheck"]
-position = Vector2( 0, -24 )
+position = Vector2( 2.5, -24 )
 shape = SubResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -314,6 +487,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 7 )
@@ -328,6 +502,7 @@ wait_time = 0.069
 one_shot = true
 
 [connection signal="animation_finished" from="Model" to="." method="_on_Model_animation_finished"]
+[connection signal="animation_finished" from="Model" to="Model" method="_on_Model_animation_finished"]
 [connection signal="timeout" from="Model/Guns/ChargeTimer" to="." method="OnChargeTimerTimeout"]
 [connection signal="timeout" from="Model/Guns/ReloadTimer" to="." method="Reload"]
 [connection signal="body_entered" from="FloorCheck" to="FloorCheck" method="OnFloorCheckEntered"]

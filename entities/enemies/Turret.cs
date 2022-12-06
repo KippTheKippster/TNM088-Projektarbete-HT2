@@ -10,6 +10,8 @@ public class Turret : Node2D
     Timer chargeTimer;
     Timer shootTimer;
 
+    [Export] float shootSpeed = 2;
+
     bool _flipped;
     [Export] bool Flipped
     {
@@ -40,6 +42,11 @@ public class Turret : Node2D
         chargeTimer = GetNode("StartChargeTimer") as Timer;
         shootTimer = GetNode("ShootTimer") as Timer;
 
+        shootTimer.Start();
+
+        chargeTimer.WaitTime = shootSpeed * 0.7f;
+        shootTimer.WaitTime = shootSpeed;
+
         sprite.Animation = "default";
     }
     
@@ -57,7 +64,6 @@ public class Turret : Node2D
         gun.Shoot(gun.GlobalPosition, new Vector2(-Scale.x, 0));
         GD.Print("Shoot...");
         chargeTimer.Start();
-        shootTimer.Start();
         chargeSprite.Visible = false;
         sprite.Animation = "shoot"; 
     }

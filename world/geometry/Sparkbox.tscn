@@ -1,6 +1,6 @@
 [gd_scene load_steps=116 format=2]
 
-[ext_resource path="res://assets/textures/geometry/sparkboxes/SparkboxTopCorner.png" type="Texture" id=1]
+[ext_resource path="res://assets/textures/geometry/sparkboxes/SparkboxTopLeft.png" type="Texture" id=1]
 [ext_resource path="res://assets/textures/geometry/sparkboxes/SparkboxLeft.png" type="Texture" id=2]
 [ext_resource path="res://assets/textures/geometry/sparkboxes/SparkboxBottomLeft.png" type="Texture" id=3]
 [ext_resource path="res://assets/textures/geometry/sparkboxes/SparkboxBottom.png" type="Texture" id=4]
@@ -758,7 +758,7 @@ script = ExtResource( 9 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 13 )
 animation = "0"
-frame = 10
+frame = 7
 speed_scale = 3.0
 playing = true
 
