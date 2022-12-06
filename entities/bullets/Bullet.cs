@@ -70,7 +70,6 @@ public class Bullet : Node2D
 
 	private void _on_Area2D_body_entered(Node body)
     {
-		GD.Print("Bruh");
 		Die();
     }
 

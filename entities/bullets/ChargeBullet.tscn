@@ -54,7 +54,6 @@ extents = Vector2( 8, 4 )
 position = Vector2( 0, 0 )
 frames = SubResource( 22 )
 animation = "idle"
-frame = 1
 offset = Vector2( 0, 0 )
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]

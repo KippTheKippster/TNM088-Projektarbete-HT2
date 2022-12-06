@@ -50,7 +50,7 @@ animations = [ {
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 0, 0 )
 frames = SubResource( 22 )
-animation = "death"
+animation = "idle"
 frame = 1
 offset = Vector2( 0, 0 )
 
