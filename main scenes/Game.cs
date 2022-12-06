@@ -7,14 +7,20 @@ public class Game : Node2D
 	public static Player player;
 	public static Camera2D camera;
 	public static Level level = null;
+	public static Audio audio;
 	private readonly string levelPath = "res://world/levels/";
 	[Export(PropertyHint.Range, "1,1000,")] public int levelNumber = 1;
+
+	[Signal] public delegate void SignalPlaySound(string path);
 
 	public override void _Ready()
 	{
 		bulletSpace = GetNode<Node2D>("%BulletSpace");
 		player = GetNode<Player>("%Player");
 		camera = player.GetNode<Camera2D>("Camera");
+		audio = GetNode<Audio>("Audio");
+
+		audio.PlaySound("dying.wav");
 
 		NextLevel();
 	} 

@@ -18,6 +18,7 @@ public class Sparkbox : Node2D
             GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation = value.ToString();
             Random random = new Random();
             int frame = random.Next(1, 7);
+            
             GetNode<AnimatedSprite>("AnimatedSprite").Frame = frame;
         }
     }

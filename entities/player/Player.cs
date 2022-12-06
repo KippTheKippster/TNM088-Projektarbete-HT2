@@ -220,6 +220,8 @@ public class Player : Entity
     {
         Vector2 shootVector;
 
+		Game.audio.PlaySound("laserShoot.wav");
+
         if (directionY != 0)
             shootVector = new Vector2(0, directionY);
         else
