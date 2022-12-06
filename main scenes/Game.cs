@@ -20,8 +20,6 @@ public class Game : Node2D
 		camera = player.GetNode<Camera2D>("Camera");
 		audio = GetNode<Audio>("Audio");
 
-		audio.PlaySound("dying.wav");
-
 		NextLevel();
 	} 
 

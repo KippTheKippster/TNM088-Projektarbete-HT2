@@ -220,7 +220,7 @@ public class Player : Entity
     {
         Vector2 shootVector;
 
-		Game.audio.PlaySound("laserShoot.wav");
+		Game.audio.PlaySound("laserShoot.wav", 0.9f, 1.1f);
 
         if (directionY != 0)
             shootVector = new Vector2(0, directionY);
@@ -274,6 +274,7 @@ public class Player : Entity
             case PlayerDeath.Default:
                 {
                     model.Animation = "DeathDefault";
+					Game.audio.PlaySound("dying.wav");
                     break;
                 }
             case PlayerDeath.Electricity:

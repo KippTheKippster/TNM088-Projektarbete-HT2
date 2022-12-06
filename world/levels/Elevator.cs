@@ -102,6 +102,7 @@ public class Elevator : AnimatedSprite
     {
         if (body.IsInGroup("Player") && EndElevator && Animation == "open")
         {
+            Game.audio.PlaySound("hiss.wav");
             Player player = (Player)body;
             player.GlobalPosition = GlobalPosition + 16 * Vector2.Down;
             player.active = false;
