@@ -23,13 +23,14 @@ public class Mouthman : Enemy
 	private void Move(float delta) 
 	{ 
 		Vector2 playerPos = Game.player.GlobalPosition;
+		
 
 		float totalVelocity = (float)Math.Sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
 		// normal hastighet ar typ 250
 		
 
-		moveSpeed = 500;
-		float maxSpeed = 300;
+		moveSpeed = 350;
+		float maxSpeed = 5000;
 
 		float airRes =  1 -(totalVelocity / maxSpeed);
 
@@ -46,12 +47,25 @@ public class Mouthman : Enemy
 
         // multiplicera med moveSpeed
 
-		velocity += posDiff * delta * moveSpeed * airRes;
+        velocity *= airRes;
+        velocity += posDiff * delta * moveSpeed;
+		
 
 		if (IsOnFloor() || IsOnCeiling())
-			velocity.y = 0.0f;
+			velocity.y *= 0.01f;
         if (IsOnWall())
-            velocity.x = 0.0f;
+            velocity.x *= 0.01f;
+		
+		if (GlobalPosition.x > playerPos.x) 
+		{
+            GlobalScale = new Vector2(-1, 1);
+			GlobalRotation = 0;
+        }
+        else
+        {
+            GlobalScale = new Vector2( 1, 1);
+			GlobalRotation = 0;
+        }
 
         MoveAndSlide(velocity, Vector2.Up);
 	}
