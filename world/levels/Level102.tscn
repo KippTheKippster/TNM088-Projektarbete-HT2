@@ -314,13 +314,13 @@ shader = ExtResource( 2 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_shift = 0.0
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=72]
 resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_shift = 0.0
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=73]
 resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
@@ -379,11 +379,11 @@ material = SubResource( 4 )
 position = Vector2( -296, 48 )
 
 [node name="MateoAlien" parent="Enemies" index="4" instance=ExtResource( 7 )]
-material = SubResource( 5 )
+material = SubResource( 72 )
 position = Vector2( 168, 56 )
 
 [node name="MateoAlien2" parent="Enemies" index="5" instance=ExtResource( 7 )]
-material = SubResource( 6 )
+material = SubResource( 73 )
 position = Vector2( 296, 120 )
 
 [node name="DeathBlock" parent="Obstacles" index="0"]
