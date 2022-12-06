@@ -94,7 +94,8 @@ public class Player : Entity
             directionX = inputX;
             GlobalScale = new Vector2(directionX, 1);
             GlobalRotation = 0;
-            if (IsOnFloor())
+
+            if (floorCheck.IsOnFloor && model.Animation != "Run")
                 model.Animation = "Run";
         }
         else
@@ -103,7 +104,7 @@ public class Player : Entity
                 model.Animation = "Idle";
         }
 
-        if (IsOnFloor())
+        if (floorCheck.IsOnFloor)
         {
             weight = groundDeceleration;
         }
@@ -213,6 +214,7 @@ public class Player : Entity
     {
         isCharged = true;
         chargeEffect.Animation = "Full";
+		Game.audio.PlaySound("chargingShot.wav");
         GD.Print("Charge Shot Ready");
     }
 
@@ -237,6 +239,8 @@ public class Player : Entity
     private void ChargeShot()
     {
         Vector2 shootVector;
+
+		Game.audio.PlaySound("laserShoot_charge.wav");
 
         if (directionY != 0)
             shootVector = new Vector2(0, directionY);
@@ -265,6 +269,9 @@ public class Player : Entity
 
     public void Kill(PlayerDeath death = PlayerDeath.Default)
     {
+		if (!active)
+			return;
+
         active = false;
         //Visible = false;
         gun.Visible = false;

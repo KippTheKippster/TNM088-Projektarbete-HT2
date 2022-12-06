@@ -63,6 +63,7 @@ position = Vector2( -24, 24 )
 material = SubResource( 5 )
 position = Vector2( 256, -8 )
 moveSpeed = -50.0
+unlockId = ""
 Flipped = true
 
 [node name="DeathBlock" parent="Obstacles" index="0"]
