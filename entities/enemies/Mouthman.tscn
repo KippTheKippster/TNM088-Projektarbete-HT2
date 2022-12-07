@@ -37,7 +37,6 @@ shape = SubResource( 3 )
 
 [node name="Sprite" parent="." index="1"]
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]

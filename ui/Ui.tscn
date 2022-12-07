@@ -41,6 +41,7 @@ align = 2
 script = ExtResource( 3 )
 
 [node name="Time" type="Label" parent="."]
+unique_name_in_owner = true
 margin_left = 3.0
 margin_right = 112.0
 margin_bottom = 53.0

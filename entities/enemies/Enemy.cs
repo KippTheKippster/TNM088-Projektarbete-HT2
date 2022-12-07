@@ -62,7 +62,12 @@ public class Enemy : Entity
 		{ 
 			Kill();
 		}
+		else
+		{
+			Game.audio.PlaySound("hitenemy.wav");
+		}
 		Flash();
+
 	}
 
 	public void Flash()
@@ -81,6 +86,7 @@ public class Enemy : Entity
 	{
 		QueueFree(); 
 		GD.Print("Enemy Died.");
+		Game.audio.PlaySound("enemyDying.wav");
 		Game.level.EmitSignal("SignalEnemyDied", unlockId);
 	}
 

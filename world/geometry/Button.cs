@@ -38,6 +38,7 @@ public class Button : AnimatedSprite
     {
         if (body.IsInGroup("Player"))
         {
+            if (Game.player.active)
             Pressed = true;
         }
     }

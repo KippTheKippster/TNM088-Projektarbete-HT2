@@ -3,18 +3,18 @@ using System;
 
 public class Time : Label
 {
-    float milliSeconds = 0;
-    int iMilliSeconds;
-    int seconds = 0;
-    int minutes = 0;
+    public float milliSeconds = 0;
+    public int iMilliSeconds;
+    public int seconds = 0;
+    public int minutes = 0;
 
-    public override void _Ready()
-    {
-        
-    }
+    public bool active = true;
 
     public override void _Process(float delta)
     {
+        if (!active)
+            return;
+
         milliSeconds +=  delta * 100;
         iMilliSeconds = Mathf.RoundToInt(milliSeconds);
         if (iMilliSeconds % 100 == 0 && iMilliSeconds > 0)

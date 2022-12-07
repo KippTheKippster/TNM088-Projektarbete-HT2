@@ -2,12 +2,21 @@
 
 importer="wav"
 type="AudioStreamSample"
+<<<<<<< HEAD
 path="res://.import/laserShoot_charge.wav-4a61910afd83c78a80555c03cdbb24ba.sample"
 
 [deps]
 
 source_file="res://assets/Music/laserShoot_charge.wav"
 dest_files=[ "res://.import/laserShoot_charge.wav-4a61910afd83c78a80555c03cdbb24ba.sample" ]
+=======
+path="res://.import/laserShoot_charge(1).wav-4b50c1c45e3b5edc0f58f42d999d857d.sample"
+
+[deps]
+
+source_file="res://assets/Music/laserShoot_charge(1).wav"
+dest_files=[ "res://.import/laserShoot_charge(1).wav-4b50c1c45e3b5edc0f58f42d999d857d.sample" ]
+>>>>>>> 24029d4ced453934c3f47099cbb2add11f2f75e7
 
 [params]
 

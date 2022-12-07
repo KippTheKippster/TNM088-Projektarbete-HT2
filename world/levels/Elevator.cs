@@ -22,6 +22,8 @@ public class Elevator : AnimatedSprite
         }
     }
 
+    [Export] public bool blink = true;
+
     [Signal] public delegate void SignalNextLevel();
 
     CollisionShape2D collisionShape;
@@ -102,6 +104,7 @@ public class Elevator : AnimatedSprite
     {
         if (body.IsInGroup("Player") && EndElevator && Animation == "open")
         {
+            Game.audio.PlaySound("hiss.wav");
             Player player = (Player)body;
             player.GlobalPosition = GlobalPosition + 16 * Vector2.Down;
             player.active = false;
@@ -129,6 +132,9 @@ public class Elevator : AnimatedSprite
 
     private void _on_Timer_timeout()
     {
+        if (!blink)
+            return;
+        
         Circle circle = (Circle)GD.Load<PackedScene>("res://effects/Circle.tscn").Instance();
         AddChild(circle);
     }

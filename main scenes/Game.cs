@@ -7,24 +7,70 @@ public class Game : Node2D
 	public static Player player;
 	public static Camera2D camera;
 	public static Level level = null;
+	public static Audio audio;
+	public static Time time;
+	public static Ui ui;
+	public static MainMenu mainMenu;
+	public static PauseMenu pauseMenu;
 	private readonly string levelPath = "res://world/levels/";
-	[Export(PropertyHint.Range, "1,1000,")] public int levelNumber = 1;
+	[Export(PropertyHint.Range, "1,1000,")] public static int levelNumber = 1;
+
+	[Signal] public delegate void SignalPlaySound(string path);
+
+	bool hasWon = false;
 
 	public override void _Ready()
 	{
 		bulletSpace = GetNode<Node2D>("%BulletSpace");
 		player = GetNode<Player>("%Player");
 		camera = player.GetNode<Camera2D>("Camera");
+		audio = GetNode<Audio>("Audio");
+		time = GetNode<Time>("Ui/Time");
+		ui = GetNode<Ui>("Ui");
+		mainMenu = GetNode<MainMenu>("MainMenu");
+		pauseMenu = GetNode<PauseMenu>("PauseMenu");
 
-		NextLevel();
+		//NextLevel();
 	} 
+
+	public override void _PhysicsProcess(float delta)
+	{
+		if (Input.IsActionJustPressed("fullscreen"))
+		{
+			OS.WindowFullscreen = !OS.WindowFullscreen;
+		}
+	}
 
 	public void NextLevel()
 	{
 		if (level != null)
 			level.QueueFree();
 
-		level = (Level)GD.Load<PackedScene>(levelPath + "Level" + levelNumber + ".tscn").Instance();
+		string path = levelPath + "Level" + levelNumber + ".tscn";
+
+		if (!ResourceLoader.Exists(path))
+		{
+			if (!hasWon)
+				Win();
+			else
+				mainMenu.Activate();
+
+			return;
+		}
+
+		level = (Level)GD.Load<PackedScene>(path).Instance();
+		GD.Print("Next level: " + levelNumber);
+		level.Ready();
+		CallDeferred("add_child", level);
+		level.Connect("SignalNextLevel", this, nameof(NextLevel));
+		level.Connect("SignalRestart", this, nameof(Restart));
+		levelNumber++;
+	}
+
+	public void Win()
+	{
+		hasWon = true;
+		level = (Level)GD.Load<PackedScene>("res://world/levels/LevelWin.tscn").Instance();
 		GD.Print("Next level: " + levelNumber);
 		level.Ready();
 		CallDeferred("add_child", level);
@@ -34,8 +80,8 @@ public class Game : Node2D
 	}
 
 	public void Restart()
-    {
+	{
 		levelNumber--;
 		NextLevel();
-    }
+	}
 }
