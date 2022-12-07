@@ -386,7 +386,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3, 2 )
+extents = Vector2( 3, 0.75 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4, 5.5 )
@@ -453,7 +453,7 @@ collision_layer = 0
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCheck"]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -24.25 )
 shape = SubResource( 2 )
 
 [node name="DelayTimer" type="Timer" parent="FloorCheck"]
@@ -462,7 +462,6 @@ one_shot = true
 
 [node name="StompCheck" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 position = Vector2( 0, 32 )
 collision_layer = 0
 collision_mask = 2
@@ -471,7 +470,8 @@ jumpStrength = 160.0
 holdDownStrength = 260.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompCheck"]
-position = Vector2( 2.5, -24 )
+visible = false
+position = Vector2( 0, -24 )
 shape = SubResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="."]
