@@ -15,7 +15,8 @@ public class PlayerHitbox : Area2D
         {
             if (area.IsInGroup("stompable"))
             {
-                if (Game.player.externalSpeed.y > 0 || Game.player.externalSpeed.y < -0.1f)
+                GD.Print(Game.player.externalSpeed.y);
+                if (!Game.player.IsOnFloor())
                 {
                     return;
                 }

@@ -15,12 +15,14 @@ public class TempPlatform : StaticBody2D
         {
             _on = value;
 
-            Sprite on = GetNode<Sprite>("SpriteOn");
-            Sprite off = GetNode<Sprite>("SpriteOff");
             CollisionShape2D collision = GetNode<CollisionShape2D>("CollisionShape2D");
 
-            on.Visible = !value;
-            off.Visible = value;
+            AnimatedSprite sprite = GetNode<AnimatedSprite>("Sprite");
+
+            if (value)
+                sprite.Animation = "close";
+            else
+                sprite.Animation = "open";
 
             collision.Disabled = value;
         }

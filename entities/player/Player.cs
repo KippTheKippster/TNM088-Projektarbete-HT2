@@ -146,22 +146,30 @@ public class Player : Entity
         MoveAndSlide(velocity, Vector2.Up);
     }
 
+    bool a;
+
     private void Jump()
     {
         if (Input.IsActionJustPressed("jump"))
         {
             gravityScale = jumpGravityScale;
-            if (floorCheck.IsOnFloor)
+            if (floorCheck.IsOnFloor && !a)
             {
+                GD.Print(floorCheck.IsOnFloor + " : " + isJumping);
                 isJumping = true;
                 jumpTimer.Start();
             }
         }
-        else if (Input.IsActionJustReleased("jump"))
+
+        if (Input.IsActionJustReleased("jump"))
         {
             isJumping = false;
             gravityScale = 1.0f;
+            a = true;
         }
+
+        if (IsOnFloor())
+            a = false;
 
         if (isJumping)
             externalSpeed.y = -jumpStrength;
@@ -240,7 +248,7 @@ public class Player : Entity
     {
         Vector2 shootVector;
 
-		Game.audio.PlaySound("laserShoot_charge.wav");
+		Game.audio.PlaySound("laserChargeShoot.wav");
 
         if (directionY != 0)
             shootVector = new Vector2(0, directionY);
@@ -261,8 +269,12 @@ public class Player : Entity
 
     private void Reload()
     {
-        currentAmmo = maxAmmo;
-        reloadTimer.Stop();
+        if (floorCheck.IsOnFloor)
+        {
+            currentAmmo = maxAmmo;
+            reloadTimer.Stop();
+        }
+
         if (Input.IsActionPressed("shoot") && !isCharged)
             StartChargin();
     }
@@ -287,7 +299,7 @@ public class Player : Entity
             case PlayerDeath.Electricity:
                 {
                     model.Animation = "DeathElectrified";
-					Game.audio.PlaySound("electrocuted.wav");
+					Game.audio.PlaySound("electrocuted.wav", volume: 13);
                     break;
                 }
         }

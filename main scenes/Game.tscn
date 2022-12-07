@@ -29,7 +29,6 @@ shader_param/offset = Vector2( 0, 0 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 5 )
-levelNumber = 300
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -128
@@ -56,7 +55,7 @@ z_index = 1
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -19.0
+volume_db = -7.907
 autoplay = true
 script = ExtResource( 4 )
 

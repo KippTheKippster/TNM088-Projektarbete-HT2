@@ -23,8 +23,8 @@ public class LevelStipulation : Node
 		level = GetParent<Level>();
 	}
 
-	public virtual void OnEnemyDied() {}
-	public virtual void OnEnemyAdd() {}
+	public virtual void OnEnemyDied(string id) {}
+	public virtual void OnEnemyAdd(string id) {}
 }
 
 public class NoneStipulation : LevelStipulation
@@ -41,7 +41,7 @@ public class KillAllStipulation : LevelStipulation
 	int maxEnemyCount;
 	int enemyCount;
 
-	public override void OnEnemyDied()
+	public override void OnEnemyDied(string id)
 	{
 		enemyCount--;
 		if (enemyCount <= 0)
@@ -51,7 +51,7 @@ public class KillAllStipulation : LevelStipulation
 		}
 	}
 
-	public override void OnEnemyAdd()
+	public override void OnEnemyAdd(string id)
 	{
 		enemyCount++;
 		maxEnemyCount++;

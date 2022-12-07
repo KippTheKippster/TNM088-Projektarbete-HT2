@@ -23,6 +23,8 @@ public class StompCheck : Area2D
                 if (Input.IsActionPressed("jump"))
                     speed = holdDownStrength;
 
+                player.currentAmmo = player.maxAmmo;
+
                 ((Enemy)area.GetParent()).Kill();
                 player.externalSpeed.y = -speed;
             }
