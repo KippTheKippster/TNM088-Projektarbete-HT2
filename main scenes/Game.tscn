@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/backgrounds/SpaceBackground.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://main scenes/Game.cs" type="Script" id=5]
 [ext_resource path="res://ui/Ui.tscn" type="PackedScene" id=6]
 [ext_resource path="res://main scenes/Audio.cs" type="Script" id=7]
+[ext_resource path="res://ui/pause_menu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://main scenes/MainMenu.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -27,7 +29,7 @@ shader_param/offset = Vector2( 0, 0 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 5 )
-levelNumber = 1000
+levelNumber = 203
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -128
@@ -60,5 +62,10 @@ script = ExtResource( 4 )
 
 [node name="Audio" type="Node" parent="."]
 script = ExtResource( 7 )
+
+[node name="PauseMenu" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="MainMenu" parent="." instance=ExtResource( 9 )]
 
 [connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_MusicPlayer_finished"]

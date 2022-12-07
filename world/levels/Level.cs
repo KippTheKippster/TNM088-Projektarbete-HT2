@@ -19,9 +19,9 @@ public class LevelStipulation : Node
 	internal Level level;
 
 	public override void _Ready()
-    {
+	{
 		level = GetParent<Level>();
-    }
+	}
 
 	public virtual void OnEnemyDied() {}
 	public virtual void OnEnemyAdd() {}
@@ -66,8 +66,8 @@ public class HitButtonsStipulation : LevelStipulation
 
 
 	public override void _Ready()
-    {
-        base._Ready();
+	{
+		base._Ready();
 		buttonListener = (ButtonListener)GD.Load<PackedScene>("res://listeners/ButtonListener.tscn").Instance();
 		AddChild(buttonListener);
 		buttonListener.id = "EndElevator";
@@ -75,7 +75,7 @@ public class HitButtonsStipulation : LevelStipulation
 	}
 
 	private void OnAllPressed()
-    {
+	{
 		GD.Print("AllPressed!");
 		level.Open();
 	}
@@ -118,8 +118,8 @@ public class Level : Node2D
 	}
 
 	private void OnEnemyAdd()
-    {
-    }
+	{
+	}
 
 	private void NextLevel()
 	{
@@ -127,7 +127,7 @@ public class Level : Node2D
 	}
 
 	private void SetStipulation()
-    {
+	{
 		switch (levelStipulationNumb)
 		{
 			case 0:

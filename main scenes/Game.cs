@@ -9,6 +9,9 @@ public class Game : Node2D
 	public static Level level = null;
 	public static Audio audio;
 	public static Time time;
+	public static Ui ui;
+	public static MainMenu mainMenu;
+	public static PauseMenu pauseMenu;
 	private readonly string levelPath = "res://world/levels/";
 	[Export(PropertyHint.Range, "1,1000,")] public int levelNumber = 1;
 
@@ -23,8 +26,11 @@ public class Game : Node2D
 		camera = player.GetNode<Camera2D>("Camera");
 		audio = GetNode<Audio>("Audio");
 		time = GetNode<Time>("Ui/Time");
+		ui = GetNode<Ui>("Ui");
+		mainMenu = GetNode<MainMenu>("MainMenu");
+		pauseMenu = GetNode<PauseMenu>("PauseMenu");
 
-		NextLevel();
+		//NextLevel();
 	} 
 
 	public override void _PhysicsProcess(float delta)
@@ -47,7 +53,7 @@ public class Game : Node2D
 			if (!hasWon)
 				Win();
 			else
-				GetTree().Quit();
+				mainMenu.Activate();
 
 			return;
 		}
@@ -74,8 +80,8 @@ public class Game : Node2D
 	}
 
 	public void Restart()
-    {
+	{
 		levelNumber--;
 		NextLevel();
-    }
+	}
 }
